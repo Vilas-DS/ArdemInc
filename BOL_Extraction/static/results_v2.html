@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Extraction Results</title>
+
+  <!-- Tailwind & Google Fonts (valid links) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+
+  <style>
+    html { font-size: 70%; }
+    body { font-family: 'Inter', sans-serif; }
+    .responsive-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+        table-layout: fixed;
+    }
+    .responsive-table th, .responsive-table td {
+        border: 1px solid #e5e7eb;
+        padding: 0.75rem;
+        text-align: left;
+        word-break: break-word;
+    }
+    html.dark .responsive-table th, html.dark .responsive-table td { border-color: #4a5568; }
+
+    .thumbnail {
+        cursor: pointer;
+        border: 2px solid transparent;
+        transition: border-color 0.2s;
+        border-radius: 6px;
+        object-fit: cover;
+    }
+    .thumbnail.active {
+        border-color: #3b82f6; /* blue-500 */
+    }
+
+    /* Viewer styles for zoom/pan */
+    .image-viewer {
+      position: relative;
+      width: 100%;
+      height: 500px;            /* fixed viewer height — adjust if needed */
+      max-width: 440px;         /* control width inside the column */
+      background: white;
+      overflow: hidden;         /* essential so only image inside viewer moves */
+      border-radius: 8px;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+    .image-viewer.dark { background: #0f172a; }
+
+    .image-viewer img.main-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: auto;
+      user-select: none;
+      -webkit-user-drag: none;
+      transform-origin: 0 0; /* we'll use top-left baseline and compute translate */
+      transition: transform 160ms ease;
+      will-change: transform;
+    }
+    .image-viewer.grabbing { cursor: grabbing; }
+    .image-viewer .thumbs { margin-top: 12px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .image-viewer .thumbs img { height: 66px; width: 100%; border-radius: 6px; object-fit: cover; }
+
+  </style>
+
+  <!-- Apply saved theme early to avoid FOUC -->
+  <script>
+    (function () {
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (saved === 'dark' || (!saved && prefersDark)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+  </script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+
+  <!-- Loading -->
+  <div id="loading" class="flex justify-center items-center h-screen">
+    <div class="text-center">
+      <svg class="animate-spin h-8 w-8 text-blue-500 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+      <p class="mt-2 text-lg">Loading Results...</p>
+    </div>
+  </div>
+
+  <!-- Error -->
+  <div id="error-container" class="hidden container mx-auto p-8">
+    <div class="my-6 p-4 bg-red-100 dark:bg-red-900/50 border border-red-400 dark:border-red-600 text-red-700 dark:text-red-300 rounded-lg">
+      <h2 class="font-bold">Error</h2>
+      <p id="error-message" class="whitespace-pre-wrap"></p>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div id="results-container" class="hidden container mx-auto p-4 md:p-8">
+    <header class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Extraction Results: <span id="filename" class="font-medium"></span></h1>
+      <div class="mt-4 flex space-x-4">
+        <a id="download-json" href="#" class="px-4 py-2 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700">Download JSON</a>
+        <a href="/" class="px-4 py-2 bg-gray-500 text-white font-semibold rounded-lg shadow-md hover:bg-gray-600">Process More Files</a>
+      </div>
+    </header>
+    <main id="results-content" class="space-y-12"></main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      initThemeToggle();
+
+      const resultId = decodeURIComponent(window.location.pathname.split('/')[2] || '');
+      if (!resultId) { showError('No result ID found.'); return; }
+
+      try {
+        const response = await fetch(`/api/results/${resultId}`);
+        if (!response.ok) throw new Error((await response.json()).detail);
+        const result = await response.json();
+        renderPage(result, resultId);
+      } catch (err) {
+        showError(err.message || 'Failed to load results.');
+      }
+    });
+
+    /* THEME TOGGLE (icon) */
+    function initThemeToggle() {
+      const btn = document.createElement('button');
+      btn.id = 'theme-toggle';
+      btn.className = 'p-2 rounded-full border border-gray-300 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700';
+      btn.setAttribute('aria-label','Toggle theme');
+      const icon = document.createElementNS('http://www.w3.org/2000/svg','svg');
+      icon.setAttribute('id','theme-icon');
+      icon.setAttribute('class','h-6 w-6');
+      icon.setAttribute('viewBox','0 0 24 24');
+      icon.setAttribute('fill','none');
+      icon.setAttribute('stroke','currentColor');
+      btn.appendChild(icon);
+      // place button in header (same position as earlier pages)
+      const header = document.querySelector('header') || document.body;
+      // append to top-right header area:
+      const headerDiv = document.querySelector('#results-container header');
+      if (headerDiv) headerDiv.appendChild(btn);
+      else document.body.prepend(btn);
+
+      function setIcon() {
+        const dark = document.documentElement.classList.contains('dark');
+        icon.innerHTML = dark
+          ? `<circle cx="12" cy="12" r="5" stroke-width="2"></circle>
+             <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M16.95 16.95l1.42 1.42M1 12h2M21 12h2" stroke-width="2" stroke-linecap="round"></path>`
+          : `<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>`;
+      }
+      setIcon();
+      btn.addEventListener('click', () => {
+        const darkNow = !document.documentElement.classList.contains('dark');
+        document.documentElement.classList.toggle('dark', darkNow);
+        localStorage.setItem('theme', darkNow ? 'dark' : 'light');
+        setIcon();
+      });
+    }
+
+    /* RENDER PAGE */
+    function renderPage(result, resultId) {
+      document.getElementById('filename').textContent = result.filename;
+      document.getElementById('download-json').href = `/api/download/json/${resultId}`;
+
+      const resultsContent = document.getElementById('results-content');
+      resultsContent.innerHTML = '';
+
+      if (!result.data || Object.keys(result.data).length === 0) {
+        resultsContent.innerHTML = '<p>No data extracted.</p>';
+      } else {
+        for (const billName in result.data) {
+          resultsContent.appendChild(renderBill(billName, result.data[billName], resultId));
+        }
+      }
+
+      document.getElementById('loading').classList.add('hidden');
+      document.getElementById('results-container').classList.remove('hidden');
+    }
+
+    /* RENDER A BILL */
+    function renderBill(billName, billData, resultId) {
+      const billSection = document.createElement('section');
+      billSection.className = 'p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg';
+
+      const billTitle = document.createElement('h2');
+      billTitle.className = 'text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6 border-b border-gray-200 dark:border-gray-700 pb-4';
+      billTitle.textContent = billName.replace(/_/g, ' ');
+      billSection.appendChild(billTitle);
+
+      const layoutGrid = document.createElement('div');
+      layoutGrid.className = 'grid grid-cols-1 lg:grid-cols-3 gap-8';
+      billSection.appendChild(layoutGrid);
+
+      const imageCol = document.createElement('div');
+      imageCol.className = 'lg:col-span-1 lg:sticky lg:top-8 self-start';
+      if (billData.page_images && billData.page_images.length > 0) {
+        imageCol.appendChild(renderImageViewer(billData.page_images));
+      }
+      layoutGrid.appendChild(imageCol);
+
+      const dataCol = document.createElement('div');
+      dataCol.className = 'lg:col-span-2';
+      layoutGrid.appendChild(dataCol);
+
+      const { keyValues, tablesFromJSON } = separateJsonData(billData.json_data || {});
+      if (Object.keys(keyValues).length > 0) {
+        dataCol.appendChild(createSectionTitle('Extracted Fields'));
+        dataCol.appendChild(createKeyValueDisplay(keyValues));
+      }
+      for (const tableName in tablesFromJSON) {
+        dataCol.appendChild(createSectionTitle(tableName));
+        dataCol.appendChild(createTableFromData(tablesFromJSON[tableName]));
+      }
+
+      if (billData.data_tables?.length > 0) {
+        dataCol.appendChild(createSectionTitle('Detected Document Tables'));
+        billData.data_tables.forEach((tableData, index) => {
+          const downloadUrl = `/api/download/excel/${resultId}/${billName}/${index}`;
+          dataCol.appendChild(createTableFromData(tableData, `Table ${index + 1}`, downloadUrl));
+        });
+      }
+
+      return billSection;
+    }
+
+    /* IMAGE VIEWER (keeps prior UI, adds dblclick zoom + drag pan) */
+    function renderImageViewer(imageUrls) {
+      const container = document.createElement('div');
+      // viewer box (keeps styling, fixed height) — responsive width is handled by parent column
+      const viewer = document.createElement('div');
+      viewer.className = 'image-viewer dark:--bg'; // custom class above
+      container.appendChild(viewer);
+
+      // main image (absolute inside viewer)
+      const mainImage = document.createElement('img');
+      mainImage.src = imageUrls[0];
+      mainImage.className = 'main-image';
+      mainImage.alt = 'Document page';
+      viewer.appendChild(mainImage);
+
+      // thumbnails if multiple
+      if (imageUrls.length > 1) {
+        const thumbnailContainer = document.createElement('div');
+        thumbnailContainer.className = 'thumbs mt-4 grid grid-cols-4 md:grid-cols-5 gap-2';
+        imageUrls.forEach((url, index) => {
+          const thumb = document.createElement('img');
+          thumb.src = url;
+          thumb.className = 'thumbnail';
+          if (index === 0) thumb.classList.add('active');
+          thumb.addEventListener('click', () => {
+            // switch main image and reset zoom/pan
+            mainImage.src = url;
+            resetZoom();
+            thumbnailContainer.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+            thumb.classList.add('active');
+          });
+          thumbnailContainer.appendChild(thumb);
+        });
+        container.appendChild(thumbnailContainer);
+      }
+
+      /* --- ZOOM & PAN IMPLEMENTATION --- */
+      let scale = 1;
+      let isZoomed = false;
+      let translateX = 0;
+      let translateY = 0;
+      let startPointer = null; // {x,y,translateX,translateY}
+      const ZOOM_TO = 2; // zoom factor (change to adjust how strong zoom is)
+
+      function applyTransform() {
+        mainImage.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+      }
+
+      function resetZoom() {
+        scale = 1;
+        translateX = 0;
+        translateY = 0;
+        isZoomed = false;
+        applyTransform();
+      }
+
+      // Compute allowed translate bounds so we don't pan into empty space
+      function getBoundsForScale(s) {
+        const viewerRect = viewer.getBoundingClientRect();
+        const imgRect = mainImage.getBoundingClientRect();
+        // current displayed image width & height (before scaling)
+        const displayedW = imgRect.width;
+        const displayedH = imgRect.height;
+        const scaledW = displayedW * s;
+        const scaledH = displayedH * s;
+        const minX = Math.min(0, viewerRect.width - scaledW);
+        const maxX = 0;
+        const minY = Math.min(0, viewerRect.height - scaledH);
+        const maxY = 0;
+        return { minX, maxX, minY, maxY };
+      }
+
+      // dblclick: zoom in centered at clicked point, dblclick again -> reset
+      mainImage.addEventListener('dblclick', (ev) => {
+        ev.preventDefault();
+        const viewerRect = viewer.getBoundingClientRect();
+        const imgRect = mainImage.getBoundingClientRect();
+        // x,y relative to image displayed top-left
+        const clickX = ev.clientX - imgRect.left;
+        const clickY = ev.clientY - imgRect.top;
+        if (!isZoomed) {
+          const newScale = ZOOM_TO;
+          // desired translate so clicked point stays under the same viewer coords:
+          // translate = - clickCoord * (newScale - 1)
+          let desiredX = - (clickX * (newScale - 1));
+          let desiredY = - (clickY * (newScale - 1));
+          const bounds = getBoundsForScale(newScale);
+          translateX = Math.max(bounds.minX, Math.min(bounds.maxX, desiredX));
+          translateY = Math.max(bounds.minY, Math.min(bounds.maxY, desiredY));
+          scale = newScale;
+          isZoomed = true;
+          applyTransform();
+        } else {
+          resetZoom();
+        }
+      });
+
+      // pointer (mouse/touch) dragging to pan when zoomed
+      function onPointerDown(ev) {
+        if (!isZoomed) return;
+        ev.preventDefault();
+        startPointer = { x: ev.clientX, y: ev.clientY, translateX, translateY };
+        viewer.classList.add('grabbing');
+        try { ev.target.setPointerCapture(ev.pointerId); } catch(e){}
+      }
+      function onPointerMove(ev) {
+        if (!startPointer) return;
+        ev.preventDefault();
+        const dx = ev.clientX - startPointer.x;
+        const dy = ev.clientY - startPointer.y;
+        const candidateX = startPointer.translateX + dx;
+        const candidateY = startPointer.translateY + dy;
+        const bounds = getBoundsForScale(scale);
+        translateX = Math.max(bounds.minX, Math.min(bounds.maxX, candidateX));
+        translateY = Math.max(bounds.minY, Math.min(bounds.maxY, candidateY));
+        applyTransform();
+      }
+      function onPointerUp(ev) {
+        if (!startPointer) return;
+        startPointer = null;
+        viewer.classList.remove('grabbing');
+        try { ev.target.releasePointerCapture(ev.pointerId); } catch(e){}
+      }
+
+      // attach pointer events to viewer (so dragging also works when pointer leaves img)
+      viewer.addEventListener('pointerdown', (e) => {
+        // Only start pan when zoomed and primary button/touch
+        if (e.button !== undefined && e.button !== 0) return; // ignore non-left buttons
+        onPointerDown(e);
+      });
+      window.addEventListener('pointermove', onPointerMove);
+      window.addEventListener('pointerup', onPointerUp);
+      window.addEventListener('pointercancel', onPointerUp);
+
+      // Reset zoom when image source changes
+      mainImage.addEventListener('load', () => {
+        // After load, clamp translate to new bounds if necessary
+        if (scale !== 1) {
+          const bounds = getBoundsForScale(scale);
+          translateX = Math.max(bounds.minX, Math.min(bounds.maxX, translateX));
+          translateY = Math.max(bounds.minY, Math.min(bounds.maxY, translateY));
+          applyTransform();
+        }
+      });
+
+      // prevent image dragging default behavior
+      mainImage.ondragstart = () => false;
+
+      // ensure viewer has dark bg if theme set
+      if (document.documentElement.classList.contains('dark')) viewer.classList.add('dark');
+
+      return container;
+    }
+
+    /* JSON helpers (unchanged) */
+    function separateJsonData(jsonData) {
+      const keyValues = {}, tablesFromJSON = {};
+      for (const key in jsonData) {
+        if (Array.isArray(jsonData[key]) && jsonData[key].length > 0 && typeof jsonData[key][0] === 'object') {
+          tablesFromJSON[key] = jsonData[key];
+        } else {
+          keyValues[key] = jsonData[key];
+        }
+      }
+      return { keyValues, tablesFromJSON };
+    }
+
+    function createSectionTitle(title) {
+         const h4 = document.createElement('h4');
+        h4.className = 'text-xl font-semibold mt-4 mb-3 text-gray-700 dark:text-gray-300 border-b border-gray-200 dark:border-gray-700 pb-2';
+        h4.textContent = title;
+        return h4;
+    }
+
+    function createKeyValueDisplay(data) {
+        const container = document.createElement('div');
+        container.className = 'grid grid-cols-1 md:grid-cols-2 gap-4';
+        for (const key in data) {
+            const value = data[key];
+            const item = document.createElement('div');
+            item.className = 'p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg';
+            item.innerHTML += `<p class="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-1">${key}</p>`;
+            if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+                item.appendChild(createKeyValueDisplay(value));
+            } else {
+                item.innerHTML += `<p class="text-base font-medium break-words">${(value === null || value === '') ? '' : value}</p>`;
+            }
+            container.appendChild(item);
+        }
+        return container;
+    }
+
+    function createTableFromData(tableData, captionText, downloadUrl) {
+        const container = document.createElement('div');
+        container.className = 'mb-6';
+        const header = document.createElement('div');
+        header.className = 'flex justify-between items-center mb-2';
+        if (captionText) { header.innerHTML += `<p class="text-lg font-medium">${captionText}</p>`; }
+        if (downloadUrl) { header.innerHTML += `<a href="${downloadUrl}" class="px-3 py-1 bg-teal-600 text-white text-xs font-semibold rounded-full hover:bg-teal-700 transition">Download Excel</a>`; }
+        container.appendChild(header);
+        if (!tableData || tableData.length === 0 || typeof tableData[0] !== 'object') {
+            container.innerHTML += `<p class="text-gray-500 italic p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">No valid data for this table.</p>`;
+            return container;
+        }
+        const tableWrapper = document.createElement('div');
+        tableWrapper.className = 'overflow-x-auto rounded-lg border dark:border-gray-700';
+        const table = document.createElement('table');
+        table.className = 'responsive-table';
+        const headers = Object.keys(tableData[0]);
+        table.innerHTML = `<thead><tr class="bg-gray-50 dark:bg-gray-700">${headers.map(h => `<th>${h}</th>`).join('')}</tr></thead>
+                         <tbody>${tableData.map(row => `<tr>${headers.map(h => `<td>${(row[h] === null || row[h] === '') ? '' : row[h]}</td>`).join('')}</tr>`).join('')}</tbody>`;
+        tableWrapper.appendChild(table);
+        container.appendChild(tableWrapper);
+        return container;
+    }
+
+    function showError(message) {
+        document.getElementById('loading').classList.add('hidden');
+        document.getElementById('results-container').classList.add('hidden');
+        const errorContainer = document.getElementById('error-container');
+        errorContainer.querySelector('#error-message').textContent = message;
+        errorContainer.classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Bill Extractor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+        html.dark ::-webkit-scrollbar-track { background: #1a202c; }
+        html.dark ::-webkit-scrollbar-thumb { background: #4a5568; }
+        html.dark ::-webkit-scrollbar-thumb:hover { background: #718096; }
+        .drag-over { border-color: #3b82f6; background-color: rgba(59, 130, 246, 0.1); }
+    </style>
+    <script>
+        // Set theme on initial load
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center mb-8 relative">
+            <h1 class="text-4xl font-bold text-gray-900 dark:text-white">PDF Bill of Lading Extractor</h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 mt-2">Upload PDFs to extract structured information and tables.</p>
+            <div class="absolute top-0 right-0">
+                <button id="theme-toggle" type="button" class="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none">
+                    <svg id="theme-toggle-light-icon" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm-.707 8.486a1 1 0 011.414 0l.707.707a1 1 0 11-1.414 1.414l-.707-.707a1 1 0 010-1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                    <svg id="theme-toggle-dark-icon" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                </button>
+            </div>
+        </header>
+
+        <main class="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg">
+                <div class="flex items-center mb-4">
+                    <svg class="w-8 h-8 mr-3 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                    <h2 class="text-2xl font-semibold text-gray-900 dark:text-white">Upload Your Files</h2>
+                </div>
+                <div id="drop-zone" class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-6 text-center transition-all">
+                    <input type="file" id="pdfFiles" accept=".pdf" multiple class="hidden"/>
+                    <label for="pdfFiles" class="cursor-pointer">
+                        <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true"><path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                            <span class="font-semibold text-blue-600 dark:text-blue-400">Click to upload</span> or drag and drop
+                        </p>
+                        <p class="text-xs text-gray-500 dark:text-gray-500">PDF files only</p>
+                    </label>
+                    <div id="file-list" class="mt-4 text-left text-sm"></div>
+                </div>
+                <div class="text-center">
+                    <button id="uploadButton" class="mt-6 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed">Extract Data</button>
+                </div>
+
+                <div id="progress-container" class="hidden mt-6">
+                    <p id="progress-text" class="text-center mb-2 text-gray-600 dark:text-gray-400">Starting...</p>
+                    <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                        <div id="progress-bar" class="bg-blue-600 h-2.5 rounded-full transition-all duration-500 ease-out" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div id="error-container" class="hidden my-6 p-4 bg-red-100 dark:bg-red-900/50 border border-red-400 dark:border-red-600 text-red-700 dark:text-red-300 rounded-lg"></div>
+            </div>
+
+            <div class="lg:col-span-1 bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg">
+                <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">Processing History</h2>
+                <div id="history-list" class="space-y-3 max-h-96 overflow-y-auto pr-2">
+                    <p id="history-placeholder" class="text-gray-500 dark:text-gray-400">No files processed yet.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Element References
+            const ui = {
+                uploadButton: document.getElementById('uploadButton'),
+                pdfFilesInput: document.getElementById('pdfFiles'),
+                errorContainer: document.getElementById('error-container'),
+                progressContainer: document.getElementById('progress-container'),
+                progressBar: document.getElementById('progress-bar'),
+                progressText: document.getElementById('progress-text'),
+                historyList: document.getElementById('history-list'),
+                historyPlaceholder: document.getElementById('history-placeholder'),
+                themeToggleBtn: document.getElementById('theme-toggle'),
+                lightIcon: document.getElementById('theme-toggle-light-icon'),
+                darkIcon: document.getElementById('theme-toggle-dark-icon'),
+                dropZone: document.getElementById('drop-zone'),
+                fileList: document.getElementById('file-list')
+            };
+
+            // --- Theme Toggle Logic ---
+            function updateThemeUI() {
+                const isDark = document.documentElement.classList.contains('dark');
+                // FIX: Correctly show the icon for the CURRENT theme
+                ui.darkIcon.classList.toggle('hidden', !isDark);
+                ui.lightIcon.classList.toggle('hidden', isDark);
+            }
+
+            ui.themeToggleBtn.addEventListener('click', () => {
+                document.documentElement.classList.toggle('dark');
+                localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+                updateThemeUI();
+            });
+
+            // --- Drag and Drop Logic ---
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                ui.dropZone.addEventListener(eventName, e => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                });
+            });
+            ['dragenter', 'dragover'].forEach(eventName => {
+                ui.dropZone.addEventListener(eventName, () => ui.dropZone.classList.add('drag-over'));
+            });
+            ['dragleave', 'drop'].forEach(eventName => {
+                ui.dropZone.addEventListener(eventName, () => ui.dropZone.classList.remove('drag-over'));
+            });
+
+            ui.dropZone.addEventListener('drop', e => {
+                ui.pdfFilesInput.files = e.dataTransfer.files;
+                updateFileList();
+            });
+            ui.pdfFilesInput.addEventListener('change', updateFileList);
+
+            function updateFileList() {
+                ui.fileList.innerHTML = '';
+                if (ui.pdfFilesInput.files.length > 0) {
+                    const list = document.createElement('ul');
+                    list.className = 'list-disc list-inside text-gray-600 dark:text-gray-400';
+                    Array.from(ui.pdfFilesInput.files).forEach(file => {
+                        const li = document.createElement('li');
+                        li.textContent = file.name;
+                        list.appendChild(li);
+                    });
+                    ui.fileList.appendChild(list);
+                }
+            }
+            
+            // --- Core Application Logic ---
+            async function handleUpload() {
+                if (ui.pdfFilesInput.files.length === 0) {
+                    showError('Please select one or more PDF files.');
+                    return;
+                }
+                
+                const formData = new FormData();
+                Array.from(ui.pdfFilesInput.files).forEach(file => formData.append('files', file));
+                
+                resetUI();
+                ui.uploadButton.disabled = true;
+                ui.progressContainer.classList.remove('hidden');
+                // IMPROVEMENT: Provide immediate feedback on progress bar
+                ui.progressBar.style.width = '5%';
+
+                try {
+                    const response = await fetch('/api/extract/', { method: 'POST', body: formData });
+                    if (!response.ok) throw new Error(`Server error: ${response.status} ${response.statusText}`);
+
+                    const reader = response.body.getReader();
+                    const decoder = new TextDecoder();
+
+                    while (true) {
+                        const { done, value } = await reader.read();
+                        if (done) break;
+                        
+                        decoder.decode(value, { stream: true }).split('\n\n')
+                            .filter(line => line.trim().startsWith('data: '))
+                            .forEach(line => processStreamData(JSON.parse(line.substring(6))));
+                    }
+                } catch (err) {
+                    console.error("Upload failed:", err);
+                    showError("An error occurred during upload. Please check the console for details.");
+                    resetUI();
+                }
+            }
+
+            function processStreamData(data) {
+                if (data.status === 'processing') {
+                    const percent = (data.currentFile / data.totalFiles) * 100;
+                    ui.progressBar.style.width = `${percent}%`;
+                    ui.progressText.textContent = `Processing ${data.filename} (${data.currentFile} of ${data.totalFiles})...`;
+                } else if (data.status === 'error') {
+                    showError(`Error processing ${data.filename}: ${data.message}`);
+                } else if (data.status === 'complete') {
+                    ui.progressText.textContent = 'All files processed successfully!';
+                    // IMPROVEMENT: Show success with a green progress bar
+                    ui.progressBar.classList.remove('bg-blue-600');
+                    ui.progressBar.classList.add('bg-green-600');
+                    ui.progressBar.style.width = '100%';
+                    
+                    if (data.result_ids?.length > 0) {
+                        data.result_ids.forEach(id => window.open(`/results/${id}`, '_blank'));
+                    }
+                    
+                    loadHistory();
+                    
+                    setTimeout(() => {
+                        resetUI();
+                        ui.pdfFilesInput.value = '';
+                        updateFileList();
+                    }, 2500);
+                }
+            }
+
+            async function loadHistory() {
+                try {
+                    const response = await fetch('/api/history');
+                    if (!response.ok) throw new Error('Failed to fetch history.');
+                    
+                    const historyData = await response.json();
+                    ui.historyList.innerHTML = '';
+
+                    if (historyData.length === 0) {
+                        ui.historyList.appendChild(ui.historyPlaceholder);
+                    } else {
+                        historyData.forEach(item => ui.historyList.appendChild(createHistoryItem(item)));
+                    }
+                } catch (err) {
+                    console.error('Failed to load history:', err);
+                    ui.historyPlaceholder.textContent = 'Could not load history.';
+                }
+            }
+            
+            function createHistoryItem(item) {
+                const div = document.createElement('div');
+                div.className = 'p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg flex items-center justify-between transition hover:bg-gray-100 dark:hover:bg-gray-700';
+                div.innerHTML = `
+                    <div class="overflow-hidden">
+                        <p class="font-semibold text-sm truncate">${item.filename}</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">${new Date(item.timestamp).toLocaleString()}</p>
+                    </div>
+                    <a href="/results/${item.id}" target="_blank" class="ml-4 flex-shrink-0 px-3 py-1 bg-blue-500 text-white text-xs font-semibold rounded-full hover:bg-blue-600 transition">View</a>
+                `;
+                return div;
+            }
+
+            // --- UI Helper Functions ---
+            function showError(message) {
+                ui.errorContainer.textContent = message;
+                ui.errorContainer.classList.remove('hidden');
+            }
+
+            function resetUI() {
+                ui.uploadButton.disabled = false;
+                ui.errorContainer.classList.add('hidden');
+                ui.progressContainer.classList.add('hidden');
+                ui.progressBar.style.width = '0%';
+                ui.progressBar.classList.remove('bg-green-600');
+                ui.progressBar.classList.add('bg-blue-600');
+            }
+
+            // --- Initial Setup ---
+            ui.uploadButton.addEventListener('click', handleUpload);
+            updateThemeUI();
+            loadHistory();
+        });
+    </script>
+</body>
+</html>
