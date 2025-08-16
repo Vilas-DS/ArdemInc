@@ -62,9 +62,9 @@
                 </div>
 
                 <div id="progress-container" class="hidden mt-6">
-                    <p id="progress-text" class="text-center mb-2 text-gray-600 dark:text-gray-400">Starting...</p>
+                    <p id="progress-text" aria-live="polite" class="text-center mb-2 text-gray-600 dark:text-gray-400">Starting...</p>
                     <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
-                        <div id="progress-bar" class="bg-blue-600 h-2.5 rounded-full transition-all duration-500 ease-out" style="width: 0%"></div>
+                        <div id="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" class="bg-blue-600 h-2.5 rounded-full transition-all duration-500 ease-out" style="width: 0%"></div>
                     </div>
                 </div>
 
@@ -162,6 +162,7 @@
                 ui.progressContainer.classList.remove('hidden');
                 // IMPROVEMENT: Provide immediate feedback on progress bar
                 ui.progressBar.style.width = '5%';
+                ui.progressBar.setAttribute('aria-valuenow', 5);
 
                 try {
                     const response = await fetch('/api/extract/', { method: 'POST', body: formData });
@@ -189,6 +190,7 @@
                 if (data.status === 'processing') {
                     const percent = (data.currentFile / data.totalFiles) * 100;
                     ui.progressBar.style.width = `${percent}%`;
+                    ui.progressBar.setAttribute('aria-valuenow', Math.round(percent));
                     ui.progressText.textContent = `Processing ${data.filename} (${data.currentFile} of ${data.totalFiles})...`;
                 } else if (data.status === 'error') {
                     showError(`Error processing ${data.filename}: ${data.message}`);
@@ -198,6 +200,7 @@
                     ui.progressBar.classList.remove('bg-blue-600');
                     ui.progressBar.classList.add('bg-green-600');
                     ui.progressBar.style.width = '100%';
+                    ui.progressBar.setAttribute('aria-valuenow', 100);
                     
                     if (data.result_ids?.length > 0) {
                         data.result_ids.forEach(id => window.open(`/results/${id}`, '_blank'));
@@ -256,6 +259,7 @@
                 ui.errorContainer.classList.add('hidden');
                 ui.progressContainer.classList.add('hidden');
                 ui.progressBar.style.width = '0%';
+                ui.progressBar.setAttribute('aria-valuenow', 0);
                 ui.progressBar.classList.remove('bg-green-600');
                 ui.progressBar.classList.add('bg-blue-600');
             }
