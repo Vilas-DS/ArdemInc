@@ -1,0 +1,25 @@
+{
+  "filename": "Bradshaw(4).pdf",
+  "result_id": "bf77105b-442b-4fa3-a507-90532082bd39",
+  "saved_at": "2025-08-21T16:55:33.366733",
+  "json": "result.json",
+  "open": "open.html",
+  "excels": [
+    "Bradshaw_4__Bill_1_table_1.xlsx",
+    "Bradshaw_4__Bill_1_table_2.xlsx",
+    "Bradshaw_4__Bill_2_table_1.xlsx",
+    "Bradshaw_4__Bill_2_table_2.xlsx",
+    "Bradshaw_4__Bill_3_table_1.xlsx",
+    "Bradshaw_4__Bill_3_table_2.xlsx",
+    "Bradshaw_4__Bill_4_table_1.xlsx",
+    "Bradshaw_4__Bill_4_table_2.xlsx"
+  ],
+  "images": [
+    "page_1.png",
+    "page_2.png",
+    "page_1.png",
+    "page_1.png",
+    "page_2.png",
+    "page_1.png"
+  ]
+}

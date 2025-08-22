@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Extraction Results</title>
+
+  <!-- Tailwind (utilities only) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ---------- Fixed, modern light theme (never reads OS theme) ---------- */
+    :root{
+      --page-bg: #f5f7fb;
+      --text: #111827;                /* gray-900 */
+      --muted-text: #4b5563;          /* gray-600 */
+
+      --surface: #eef2f7;             /* light gray surface */
+      --surface-alt: #e9edf3;         /* zebra alt background */
+      --border: #1f2937;              /* strong dark border */
+
+      --primary: #615daa;             /* indigo-600 */
+      --primary-hover: #4338ca;       /* indigo-700 */
+      --success: #059669;             /* emerald-600 */
+      --success-hover: #047857;       /* emerald-700 */
+      --info: #2563eb;                /* blue-600 */
+    }
+
+    html{ font-size: 70%; }
+    body{
+      font-family: 'Inter', sans-serif;
+      background: var(--page-bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ---------- Surfaces / cards ---------- */
+    .surface{
+      background: var(--surface);
+      /* border: 1.8px solid var(--border); */
+      border-radius: 9px;
+      box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+
+    }
+
+    
+    .surface-head{
+      border-bottom: 1.8px solid var(--border);
+      padding-bottom: 1rem;
+    }
+
+    /* ---------- Section accent line ---------- */
+    .section-bar{ position:relative; padding-left:.9rem; margin:1.25rem 0 .75rem; }
+    .section-bar::before{
+      content:""; position:absolute; left:0; top:.2rem; bottom:.2rem;
+      width:4px; background:var(--border); border-radius:999px;
+    }
+
+    /* ---------- Image viewer ---------- */
+    .viewer{
+      position: relative; width: 100%; overflow: hidden;
+      border-radius: 9px; background: var(--surface);
+      border: 2px solid var(--border);
+    }
+    .viewer img.main-image{
+      position:absolute; top:0; left:0; width:100%; height:auto;
+      user-select:none; -webkit-user-drag:none;
+      transform-origin:0 0; transition:transform .16s ease; will-change:transform;
+    }
+    .viewer.grabbing{ cursor:grabbing; }
+    .thumbnail{ cursor:pointer; border:2px solid transparent; border-radius:8px; object-fit:cover; }
+    .thumbnail:hover{ border-color: rgba(0,0,0,.18); }
+    .thumbnail.active{ border-color:#22c55e; } /* green-500 */
+
+    /* ---------- Tables: compact & crisp ---------- */
+    .table-wrap{
+      background: var(--surface);
+      border: 1.8px solid var(--border);
+      border-radius: 9px;
+      overflow: auto;
+    }
+    .responsive-table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      table-layout:fixed;
+      font-size: 1.2rem; 
+      font-weight: 500;            /* smaller text */
+    }
+    .responsive-table thead th{
+      position: sticky; top: 0; z-index: 1;
+      background: #2b2f55;          /* deep navy header */
+      color: #fff;
+      font-weight: 700;
+      text-align: left;
+      padding: .7rem .75rem;         /* tighter */
+      border-bottom: 1.8px solid var(--border);
+      
+    }
+    .responsive-table th, .responsive-table td{
+      padding: .55rem .75rem;        /* compact cells */
+      text-align: left;
+      word-break: break-word;
+      border-bottom: 1px solid var(--border);
+    }
+    .responsive-table tbody tr:nth-child(odd){ background: var(--surface-alt); }
+    .responsive-table tbody tr:nth-child(even){ background: var(--surface); }
+
+    /* ---------- Buttons ---------- */
+    .btn{ display:inline-flex; align-items:center; gap:.5rem;
+      font-weight:600; border-radius:.75rem; padding:.7rem 1.1rem;
+      transition: background .15s ease, transform .05s ease; }
+    .btn:active{ transform: translateY(1px); }
+    .btn-primary{ background: var(--primary); color:#fff; }
+    .btn-primary:hover{ background: var(--primary-hover); }
+    .btn-success{ background: var(--success); color:#fff; }
+    .btn-success:hover{ background: var(--success-hover); }
+    .btn-chip{ background:#059669; color:#fff; border-radius:9px; padding:.35rem .9rem; font-size:.98rem; font-weight:700; }
+  </style>
+</head>
+
+<body>
+  <!-- Loading -->
+  <div id="loading" class="flex justify-center items-center h-screen">
+    <div class="text-center">
+      <svg class="animate-spin h-8 w-8 text-[var(--success)] mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+      </svg>
+      <p class="mt-2 text-lg">Loading Results...</p>
+    </div>
+  </div>
+
+  <!-- Error -->
+  <div id="error-container" class="hidden container mx-auto p-6">
+    <div class="surface p-4">
+      <h2 class="font-bold mb-2">Error</h2>
+      <p id="error-message" class="whitespace-pre-wrap" style="color:var(--muted-text)"></p>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div id="results-container" class="hidden container mx-auto p-4 lg:p-8">
+    <header class="surface p-5 mb-8">
+      <div class="surface-head flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <h1 class="text-3xl font-bold">
+          Extraction Results: <span id="filename" class="font-medium" style="color:var(--muted-text)"></span>
+        </h1>
+        <div class="flex gap-3">
+          <a id="download-json" href="#" class="btn btn-success">Download JSON</a>
+          <a href="/" class="btn btn-primary">Process More Files</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="results-content" class="space-y-8"></main>
+  </div>
+
+  <script>
+    /* ==================== FETCH & RENDER ==================== */
+    document.addEventListener('DOMContentLoaded', async () => {
+      const resultId = window.location.pathname.split('/')[2];
+      if (!resultId) { showError("No result ID found."); return; }
+      try {
+        const res = await fetch(`/api/results/${resultId}`);
+        if (!res.ok) throw new Error((await res.json()).detail);
+        const result = await res.json();
+        renderPage(result, resultId);
+      } catch (e) {
+        showError(e.message);
+      }
+    });
+
+    function renderPage(result, resultId){
+      document.getElementById('filename').textContent = result.filename;
+      document.getElementById('download-json').href = `/api/download/json/${resultId}`;
+
+      const host = document.getElementById('results-content');
+      host.innerHTML = '';
+
+      if (!result.data || Object.keys(result.data).length === 0) {
+        host.innerHTML = '<div class="surface p-4">No data extracted.</div>';
+      } else {
+        for (const billName in result.data) {
+          host.appendChild(renderBill(billName, result.data[billName], resultId, result.filename));
+        }
+      }
+
+      document.getElementById('loading').classList.add('hidden');
+      document.getElementById('results-container').classList.remove('hidden');
+    }
+
+    function renderBill(billName, billData, resultId, filename){
+      const section = document.createElement('section');
+      section.className = 'surface p-6';
+
+      /* Header */
+      const head = document.createElement('div');
+      head.className = 'surface-head flex items-center justify-between';
+      const title = document.createElement('h2');
+      title.className = 'text-2xl font-bold';
+      title.textContent = billName.replace(/_/g, ' ');
+      head.appendChild(title);
+
+      if (billData.required_json){
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'btn btn-primary';
+        btn.textContent = 'Bill Json Data';
+        btn.addEventListener('click', () => {
+          const dataStr = JSON.stringify(billData.required_json, null, 2);
+          const blob = new Blob([dataStr], { type:'application/json' });
+          const url = URL.createObjectURL(blob);
+          const safeFile = (filename||'result').replace(/[^a-z0-9._-]+/gi,'_');
+          const safeBill = billName.replace(/[^a-z0-9._-]+/gi,'_');
+          const a = document.createElement('a');
+          a.href = url; a.download = `${safeFile}_${safeBill}_required.json`;
+          document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+        });
+        head.appendChild(btn);
+      }
+      section.appendChild(head);
+
+        /* ---------------- 40/60 layout ---------------- */
+        const grid = document.createElement('div');
+        grid.className = 'grid grid-cols-1 xl:grid-cols-5 gap-6 mt-6'; // CHANGED
+        section.appendChild(grid);
+
+        /* Left 40%: Image viewer (sticky for long tables) */
+        const left = document.createElement('div');
+        left.className = 'xl:sticky xl:top-8 self-start xl:col-span-2'; // CHANGED
+        if (billData.page_images?.length) {
+        left.appendChild(renderImageViewer(billData.page_images));
+        }
+        grid.appendChild(left);
+
+        /* Right 60%: Extracted Fields + Tables */
+        const right = document.createElement('div');
+        right.className = 'space-y-6 xl:col-span-3'; // CHANGED
+        grid.appendChild(right);
+
+
+      const { keyValues } = separateJsonData(billData.json_data || {});
+      delete keyValues["Carrier Information"];
+      delete keyValues["Customer Order Information"];
+
+      if (Object.keys(keyValues).length){
+        right.appendChild(makeSectionTitle('Extracted Fields'));
+        right.appendChild(createKeyValueDisplay(keyValues));
+      }
+
+      if (billData.data_tables?.length){
+        right.appendChild(makeSectionTitle('Detected Document Tables'));
+        billData.data_tables.forEach((tbl, idx) => {
+          const url = `/api/download/excel/${resultId}/${billName}/${idx}`;
+          right.appendChild(createTableFromData(tbl, `Table ${idx+1}`, url));
+        });
+      }
+
+      return section;
+    }
+
+    /* ==================== IMAGE VIEWER ==================== */
+    function renderImageViewer(imageUrls){
+      const container = document.createElement('div');
+
+      const viewer = document.createElement('div');
+      viewer.className = 'viewer';
+      container.appendChild(viewer);
+
+      const main = document.createElement('img');
+      main.src = imageUrls[0];
+      main.className = 'main-image rounded-md';
+      main.alt = 'Document page';
+      viewer.appendChild(main);
+
+      if (imageUrls.length > 1) {
+        const thumbs = document.createElement('div');
+        thumbs.className = 'mt-4 grid grid-cols-4 md:grid-cols-5 gap-2';
+        imageUrls.forEach((url, i) => {
+          const t = document.createElement('img');
+          t.src = url; t.className = 'thumbnail';
+          if (i===0) t.classList.add('active');
+          t.addEventListener('click', () => {
+            main.src = url; resetZoom();
+            thumbs.querySelectorAll('.thumbnail').forEach(e => e.classList.remove('active'));
+            t.classList.add('active');
+          });
+          thumbs.appendChild(t);
+        });
+        container.appendChild(thumbs);
+      }
+
+      function sizeViewer(){
+        const nw = main.naturalWidth || 0, nh = main.naturalHeight || 0;
+        if (!nw || !nh) return;
+        const w = viewer.clientWidth, ratio = nh / nw;
+        /* Make viewer tall enough, but not gigantic: cap height */
+        const desired = Math.min(w * ratio, 760); /* ~fits typical screens */
+        viewer.style.height = desired + 'px';
+      }
+
+      main.addEventListener('load', () => { sizeViewer(); clamp(); apply(); });
+      window.addEventListener('resize', () => { sizeViewer(); clamp(); apply(); });
+      setTimeout(sizeViewer, 0);
+
+      let scale=1, zoomed=false, tx=0, ty=0, drag=null;
+      const Z=2;
+
+      function apply(){ main.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`; }
+      function bounds(s){
+        const v = viewer.getBoundingClientRect(), i = main.getBoundingClientRect();
+        const w = i.width * s, h = i.height * s;
+        return { minX: Math.min(0, v.width - w), maxX: 0, minY: Math.min(0, v.height - h), maxY: 0 };
+      }
+      function clamp(){ const b = bounds(scale); tx = Math.max(b.minX, Math.min(b.maxX, tx)); ty = Math.max(b.minY, Math.min(b.maxY, ty)); }
+      function resetZoom(){ scale=1; zoomed=false; tx=0; ty=0; apply(); }
+
+      viewer.addEventListener('dblclick', (e)=>{
+        e.preventDefault();
+        const r = main.getBoundingClientRect(), cx = e.clientX - r.left, cy = e.clientY - r.top;
+        if (!zoomed) {
+          const s = Z, b = bounds(s);
+          tx = Math.max(b.minX, Math.min(b.maxX, -cx * (s-1)));
+          ty = Math.max(b.minY, Math.min(b.maxY, -cy * (s-1)));
+          scale = s; zoomed = true;
+        } else { resetZoom(); }
+        apply();
+      });
+
+      viewer.addEventListener('pointerdown', (e)=>{
+        if (!zoomed) return;
+        e.preventDefault(); viewer.classList.add('grabbing');
+        drag = { x:e.clientX, y:e.clientY, tx, ty };
+        try{ viewer.setPointerCapture(e.pointerId); }catch(_){}
+      });
+      viewer.addEventListener('pointermove', (e)=>{
+        if (!drag) return;
+        e.preventDefault();
+        const dx = e.clientX - drag.x, dy = e.clientY - drag.y, b = bounds(scale);
+        tx = Math.max(b.minX, Math.min(b.maxX, drag.tx + dx));
+        ty = Math.max(b.minY, Math.min(b.maxY, drag.ty + dy));
+        apply();
+      });
+      function endDrag(e){ if(!drag) return; drag=null; viewer.classList.remove('grabbing'); try{ viewer.releasePointerCapture(e.pointerId); }catch(_){ } }
+      viewer.addEventListener('pointerup', endDrag);
+      viewer.addEventListener('pointercancel', endDrag);
+      viewer.addEventListener('pointerleave', endDrag);
+
+      return container;
+    }
+
+    /* ==================== HELPERS ==================== */
+    function separateJsonData(jsonData){
+      const keyValues={}, tables={};
+      for (const k in jsonData) {
+        if (Array.isArray(jsonData[k]) && jsonData[k].length && typeof jsonData[k][0] === 'object') {
+          tables[k] = jsonData[k];
+        } else {
+          keyValues[k] = jsonData[k];
+        }
+      }
+      return { keyValues, tables };
+    }
+
+    function makeSectionTitle(text){
+      const wrap = document.createElement('div');
+      wrap.className = 'section-bar';
+      const h = document.createElement('h4');
+      h.className = 'text-xl font-semibold';
+      h.textContent = text;
+      wrap.appendChild(h);
+      return wrap;
+    }
+
+    function createKeyValueDisplay(data){
+      const grid = document.createElement('div');
+      grid.className = 'grid grid-cols-1 md:grid-cols-2 gap-4';
+      for (const key in data) {
+        const value = data[key];
+        const item = document.createElement('div');
+        item.className = 'surface p-3';
+        item.innerHTML += `<p class="text-sm font-semibold mb-1" style="color:var(--muted-text)">${key}</p>`;
+        if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+          item.appendChild(createKeyValueDisplay(value));
+        } else {
+          item.innerHTML += `<p class="text-base font-medium break-words">${(value === null || value === '') ? '' : value}</p>`;
+        }
+        grid.appendChild(item);
+      }
+      return grid;
+    }
+
+    function createTableFromData(tableData, captionText, downloadUrl){
+      const container = document.createElement('div');
+      container.className = 'space-y-2';
+
+      const header = document.createElement('div');
+      header.className = 'flex items-center justify-between';
+      if (captionText) header.innerHTML += `<p class="font-semibold" style="font-size:1.1rem">${captionText}</p>`;
+      if (downloadUrl) header.innerHTML += `<a href="${downloadUrl}" class="btn-chip">Download Excel</a>`;
+      container.appendChild(header);
+
+      if (!tableData || !tableData.length || typeof tableData[0] !== 'object') {
+        const msg = document.createElement('div');
+        msg.className = 'surface p-4 italic';
+        msg.textContent = 'No valid data for this table.';
+        container.appendChild(msg);
+        return container;
+      }
+
+      const wrap = document.createElement('div');
+      wrap.className = 'table-wrap';
+      const table = document.createElement('table');
+      table.className = 'responsive-table';
+
+      const headers = Object.keys(tableData[0]);
+      table.innerHTML =
+        `<thead><tr>${headers.map(h=>`<th>${h}</th>`).join('')}</tr></thead>` +
+        `<tbody>${tableData.map(row => `<tr>${headers.map(h => `<td>${(row[h]==null || row[h]==='') ? '' : row[h]}</td>`).join('')}</tr>`).join('')}</tbody>`;
+
+      wrap.appendChild(table);
+      container.appendChild(wrap);
+      return container;
+    }
+
+    function showError(message){
+      document.getElementById('loading').classList.add('hidden');
+      document.getElementById('results-container').classList.add('hidden');
+      const box = document.getElementById('error-container');
+      box.querySelector('#error-message').textContent = message;
+      box.classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PDF Bill of Lading Extractor</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --page-bg: #f5f7fb;
+      --text: #111827;
+      --muted: #4b5563;
+
+      --surface: #eef2f7;
+      --surface-alt: #e9edf3;
+      --border: #1f2937;
+
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --neutral: #6b7280;
+      --neutral-hover: #4b5563;
+      --success: #059669;
+      --success-hover: #047857;
+      --info: #2563eb;
+
+      --blue-soft: rgba(59,130,246,.12);
+      --green-soft: rgba(16,185,129,.12);
+      --red-soft: rgba(239,68,68,.12);
+      --gray-soft: rgba(107,114,128,.15);
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--page-bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #e5e7eb; }
+    ::-webkit-scrollbar-thumb { background: #9ca3af; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #6b7280; }
+
+    .surface{
+      background: var(--surface);
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(2,6,23,.12);
+      border: 1px solid rgba(2,6,23,.06);
+    }
+
+    .btn { display:inline-flex; align-items:center; gap:.5rem;
+      font-weight:600; border-radius:.75rem; padding:.65rem 1rem;
+      transition: background .15s ease, transform .05s ease; }
+    .btn:active { transform: translateY(1px); }
+    .btn-primary { background: var(--primary); color:#fff; }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-neutral { background: var(--neutral); color:#fff; }
+    .btn-neutral:hover { background: var(--neutral-hover); }
+    .btn-success { background: var(--success); color:#fff; }
+    .btn-success:hover { background: var(--success-hover); }
+    .btn-danger { background: #ef4444; color:#fff; }
+    .btn-danger:hover { background: #dc2626; }
+
+    .input {
+      width:100%; border:1.6px solid var(--border); border-radius:.6rem;
+      background:#fff; padding:.55rem .8rem; font-size:.95rem; outline:none;
+    }
+    .input:focus { box-shadow:0 0 0 3px rgba(37,99,235,.25); border-color:var(--info); }
+
+    .link { color: var(--info); }
+    .link:hover { text-decoration: underline; }
+    .muted { color: var(--muted); }
+    .drag-over { border-color: var(--info); background-color: rgba(37,99,235,.1); }
+
+    .pill { padding:2px 8px; border-radius:9999px; font-size:11px; line-height:1; }
+    .pill-wait { background: var(--gray-soft); color:#6b7280; }
+    .pill-proc { background: var(--blue-soft); color:#2563eb; }
+    .pill-ok   { background: var(--green-soft); color:#059669; }
+    .pill-err  { background: var(--red-soft); color:#dc2626; }
+  </style>
+</head>
+<body>
+  <div class="container mx-auto p-4 md:p-8">
+    <header class="text-center mb-8">
+      <h1 class="text-4xl font-bold">PDF Bill of Lading Extractor</h1>
+      <p class="text-lg muted mt-2">Upload PDFs or let the app auto-import recent PDFs from S3.</p>
+    </header>
+
+    <main class="max-w-6xl mx-auto space-y-8">
+      <!-- Upload -->
+      <div class="surface p-8">
+        <div class="flex items-center mb-4">
+          <svg class="w-8 h-8 mr-3 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
+          <h2 class="text-2xl font-semibold">Upload Your Files</h2>
+        </div>
+
+        <div id="drop-zone" class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center transition-all">
+          <input type="file" id="pdfFiles" accept=".pdf" multiple class="hidden"/>
+          <label for="pdfFiles" class="cursor-pointer">
+            <svg class="mx-auto h-12 w-12 text-gray-500" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+              <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <p class="mt-2 text-sm muted">
+              <span class="font-semibold link">Click to upload</span> or drag and drop
+            </p>
+            <p class="text-xs muted">PDF files only</p>
+          </label>
+
+          <div id="file-list" class="mt-4 text-left text-sm"></div>
+        </div>
+
+        <div class="flex items-center justify-center gap-3 mt-6">
+          <button id="uploadButton" class="btn btn-primary">Extract Data</button>
+          <button id="cancelUpload" class="btn btn-neutral hidden">Cancel</button>
+        </div>
+
+        <div id="progress-container" class="hidden mt-6">
+          <p id="progress-text" class="text-center mb-2 muted">Starting...</p>
+          <div class="w-full bg-gray-300 rounded-full h-2.5">
+            <div id="progress-bar" class="bg-blue-600 h-2.5 rounded-full transition-all" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <div id="error-container" class="hidden my-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg"></div>
+
+        <ul id="processing-list" class="mt-6 space-y-2"></ul>
+      </div>
+
+      <!-- S3 Auto-Import -->
+      <div class="surface p-8">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center">
+            <svg class="w-8 h-8 mr-3 text-emerald-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 15a4 4 0 004 4h10a4 4 0 004-4V9a4 4 0 00-4-4h-2l-2-2H7a4 4 0 00-4 4v8z"/>
+            </svg>
+            <h2 class="text-2xl font-semibold">S3 Auto-Import</h2>
+          </div>
+          <div class="flex items-center gap-3">
+            <label class="inline-flex items-center cursor-pointer">
+              <input type="checkbox" id="s3-auto-toggle" class="sr-only peer">
+              <div class="w-11 h-6 bg-gray-300 rounded-full peer-checked:bg-emerald-600 relative transition-colors">
+                <span class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-all peer-checked:translate-x-5"></span>
+              </div>
+              <span class="ml-2 text-sm">Auto-check hourly</span>
+            </label>
+            <button id="s3-scan-now" class="btn btn-success">Scan S3 now</button>
+            <button id="s3-cancel" class="btn btn-danger hidden">Cancel</button>
+          </div>
+        </div>
+
+        <p id="s3-status" class="text-sm muted">Auto-check is OFF.</p>
+
+        <div id="s3-progress" class="hidden mt-4">
+          <p id="s3-progress-text" class="text-sm mb-2">Starting…</p>
+          <div class="w-full bg-gray-300 rounded-full h-2.5">
+            <div id="s3-progress-bar" class="h-2.5 rounded-full transition-all" style="width:0%; background:#059669;"></div>
+          </div>
+          <ul id="s3-file-list" class="mt-4 space-y-2"></ul>
+        </div>
+      </div>
+
+      <!-- Recent History (BOTTOM) -->
+      <div class="surface p-8">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-2xl font-semibold">Recent History</h2>
+          <a href="/history" class="text-sm link">View all</a>
+        </div>
+        <div id="history-list" class="space-y-3 max-h-96 overflow-y-auto pr-2">
+          <p id="history-placeholder" class="muted">No files processed yet.</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // ------- Upload UI refs -------
+    const ui = {
+      uploadButton: document.getElementById('uploadButton'),
+      cancelUpload: document.getElementById('cancelUpload'),
+      pdfFilesInput: document.getElementById('pdfFiles'),
+      dropZone: document.getElementById('drop-zone'),
+      fileList: document.getElementById('file-list'),
+      errorContainer: document.getElementById('error-container'),
+      progressContainer: document.getElementById('progress-container'),
+      progressBar: document.getElementById('progress-bar'),
+      progressText: document.getElementById('progress-text'),
+      processingList: document.getElementById('processing-list'),
+      historyList: document.getElementById('history-list'),
+      historyPlaceholder: document.getElementById('history-placeholder'),
+    };
+
+    // ------- Drag/Drop -------
+    ['dragenter','dragover','dragleave','drop'].forEach(ev=>{
+      ui.dropZone.addEventListener(ev, e=>{ e.preventDefault(); e.stopPropagation(); });
+    });
+    ['dragenter','dragover'].forEach(()=> ui.dropZone.classList.add('drag-over'));
+    ['dragleave','drop'].forEach(()=> ui.dropZone.classList.remove('drag-over'));
+
+    ui.dropZone.addEventListener('drop', e => {
+      ui.pdfFilesInput.files = e.dataTransfer.files;
+      updateFileList();
+    });
+    ui.pdfFilesInput.addEventListener('change', updateFileList);
+
+    function updateFileList(){
+      ui.fileList.innerHTML = '';
+      ui.processingList.innerHTML = '';
+      if (ui.pdfFilesInput.files.length>0){
+        const list = document.createElement('ul');
+        list.className='list-disc list-inside muted';
+        Array.from(ui.pdfFilesInput.files).forEach(file=>{
+          const li = document.createElement('li');
+          li.textContent = `${file.name} (${(file.size/1024/1024).toFixed(1)} MB)`;
+          list.appendChild(li);
+
+          // queued status row
+          const row = document.createElement('li');
+          row.dataset.filename = file.name;
+          row.className = 'flex items-center justify-between px-3 py-2 rounded text-sm';
+          row.style.background = 'var(--surface-alt)';
+          row.innerHTML = `
+            <span class="truncate">${file.name}</span>
+            <span class="pill pill-wait">Queued</span>
+          `;
+          ui.processingList.appendChild(row);
+        });
+        ui.fileList.appendChild(list);
+      }
+    }
+
+    function setRowState(name, state){
+      const row = Array.from(ui.processingList.children).find(li=> li.dataset.filename===name);
+      if (!row) return;
+      const pill = row.querySelector('.pill');
+      if (!pill) return;
+      if (state==='processing'){
+        pill.className='pill pill-proc'; pill.textContent='Processing';
+        row.style.background = 'var(--blue-soft)';
+      } else if (state==='done'){
+        pill.className='pill pill-ok'; pill.textContent='Done';
+        row.style.background = 'var(--green-soft)';
+      } else if (state==='error'){
+        pill.className='pill pill-err'; pill.textContent='Error';
+        row.style.background = 'var(--red-soft)';
+      }
+    }
+
+    // ------- Manual upload handler (SSE) -------
+    let abortUploadCtrl = null;
+
+    ui.uploadButton.addEventListener('click', handleUpload);
+    ui.cancelUpload.addEventListener('click', cancelUpload);
+
+    async function handleUpload(){
+      if (ui.pdfFilesInput.files.length===0){ showError('Please select one or more PDF files.'); return; }
+      const formData = new FormData();
+      Array.from(ui.pdfFilesInput.files).forEach(f=> formData.append('files', f));
+
+      resetUI();
+      ui.uploadButton.disabled = true;
+      ui.cancelUpload.classList.remove('hidden');
+      ui.progressContainer.classList.remove('hidden');
+      ui.progressBar.style.width = '5%';
+
+      abortUploadCtrl = new AbortController();
+
+      try{
+        const resp = await fetch('/api/extract/', { method:'POST', body: formData, signal: abortUploadCtrl.signal });
+        if (!resp.ok) throw new Error(`Server error: ${resp.status} ${resp.statusText}`);
+        if (resp.body) {
+          await consumeSSE(resp.body.getReader(), onUploadEvent);
+        } else {
+          const js = await resp.json();
+          onUploadEvent(js);
+        }
+      }catch(err){
+        if (err.name !== 'AbortError'){ console.error(err); showError('Upload failed. See console.'); }
+      }finally{
+        ui.cancelUpload.classList.add('hidden');
+        ui.uploadButton.disabled = false;
+        setTimeout(()=>{ resetUI(); ui.pdfFilesInput.value=''; updateFileList(); }, 1500);
+      }
+    }
+    function cancelUpload(){ if (abortUploadCtrl){ abortUploadCtrl.abort(); } }
+
+    async function consumeSSE(reader, handler){
+      const decoder = new TextDecoder();
+      let buf = '';
+      while (true){
+        const {done, value} = await reader.read();
+        if (done) break;
+        buf += decoder.decode(value, {stream:true});
+        const parts = buf.split('\n\n');
+        buf = parts.pop() || '';
+        for (const chunk of parts){
+          const line = chunk.split('\n').find(l=> l.startsWith('data: '));
+          if (!line) continue;
+          try { handler(JSON.parse(line.slice(6))); } catch(_){}
+        }
+      }
+    }
+
+    // ✅ Handle correct event names from backend
+    function onUploadEvent(data){
+      if (data.event === 'start_file') {
+        ui.progressText.textContent = `Starting ${data.filename} (${data.fileIndex}/${data.totalFiles})…`;
+        setRowState(data.filename, 'processing');
+      }
+      else if (data.event === 'meta') {
+        // optionally display meta (pages/bills)
+      }
+      else if (data.event === 'progress') {
+        const pct = Math.max(1, Math.min(99, data.percent ?? 0));
+        ui.progressBar.style.width = `${pct}%`;
+        ui.progressText.textContent = data.message || `Processing ${data.filename}…`;
+      }
+      else if (data.event === 'log') {
+        // optionally surface logs
+      }
+      else if (data.event === 'error') {
+        showError(`Error processing ${data.filename}: ${data.message||'Unknown error'}`);
+        setRowState(data.filename, 'error');
+      }
+      else if (data.event === 'complete_file') {
+        ui.progressBar.style.width = '100%';
+        ui.progressBar.classList.remove('bg-blue-600'); ui.progressBar.classList.add('bg-green-600');
+        setRowState(data.filename, 'done');
+        loadHistory();
+      }
+      else if (data.event === 'complete_all') {
+        ui.progressText.textContent = 'All files processed.';
+      }
+    }
+
+    function showError(msg){
+      ui.errorContainer.textContent = msg;
+      ui.errorContainer.classList.remove('hidden');
+    }
+    function resetUI(){
+      ui.errorContainer.classList.add('hidden');
+      ui.progressContainer.classList.add('hidden');
+      ui.progressBar.style.width = '0%';
+      ui.progressBar.classList.remove('bg-green-600'); ui.progressBar.classList.add('bg-blue-600');
+    }
+
+    // ------- History (show 5) -------
+    async function loadHistory(){
+      try{
+        const r = await fetch('/api/history?limit=5');
+        if (!r.ok) throw new Error('Failed to fetch history.');
+        const items = await r.json();
+
+        ui.historyList.innerHTML = '';
+        if (!items || items.length===0){
+          const p = document.createElement('p');
+          p.className = 'muted';
+          p.textContent = 'No files processed yet.';
+          ui.historyList.appendChild(p);
+          return;
+        }
+        items.forEach(item=> ui.historyList.appendChild(createHistoryItem(item)));
+      }catch(e){
+        ui.historyList.innerHTML = '<p class="muted">Failed to load history.</p>';
+      }
+    }
+
+    function createHistoryItem(item){
+      const div = document.createElement('div');
+      div.className='p-3 rounded-lg flex items-center justify-between';
+      div.style.background = '#f8fafc';
+      div.style.border = '1px solid #d1d5db';
+      const ts = item.timestamp ? new Date(item.timestamp).toLocaleString() : '';
+      div.innerHTML = `
+        <div class="overflow-hidden">
+          <p class="font-semibold text-sm truncate">${item.filename}</p>
+          <p class="text-xs muted">${ts}</p>
+        </div>
+        <a href="/results/${item.id}" target="_blank" class="ml-4 flex-shrink-0 btn btn-primary text-xs">View</a>
+      `;
+      return div;
+    }
+    loadHistory();
+
+    // ===================== S3 AUTO-IMPORT =====================
+    const s3 = {
+      toggle: document.getElementById('s3-auto-toggle'),
+      scanNow: document.getElementById('s3-scan-now'),
+      cancelBtn: document.getElementById('s3-cancel'),
+      status: document.getElementById('s3-status'),
+      box: document.getElementById('s3-progress'),
+      bar: document.getElementById('s3-progress-bar'),
+      text: document.getElementById('s3-progress-text'),
+      list: document.getElementById('s3-file-list'),
+      timerId: null,
+      streamES: null,
+      running: false,
+    };
+
+    // Default OFF on first load
+    if (localStorage.getItem('s3Auto') === null) {
+      localStorage.setItem('s3Auto', '0');
+    }
+    s3.toggle.checked = localStorage.getItem('s3Auto') === '1';
+    s3.status.textContent = s3.toggle.checked ? 'Auto-check is ON (every hour).' : 'Auto-check is OFF.';
+
+    s3.toggle.addEventListener('change', ()=>{
+      localStorage.setItem('s3Auto', s3.toggle.checked ? '1':'0');
+      if (s3.toggle.checked){ scheduleHourly(); }
+      else { clearSchedule(); }
+    });
+
+    // Manual scan
+    s3.scanNow.addEventListener('click', ()=> startS3Scan(true));
+
+    // Cancel scan
+    s3.cancelBtn.addEventListener('click', async ()=>{
+      try {
+        const r = await fetch('/api/ingest/s3/cancel', { method: 'POST' });
+        if (s3.streamES) { try { s3.streamES.close(); } catch(_){} }
+        s3.text.textContent = 'Cancelling…';
+      } catch(e) {
+        // ignore
+      }
+    });
+
+    // Hourly schedule (does NOT run immediately)
+    function scheduleHourly(){
+      clearSchedule();
+      s3.timerId = setInterval(()=> startS3Scan(false), 60*60*1000);
+      s3.status.textContent = 'Auto-check is ON (every hour).';
+    }
+    function clearSchedule(){
+      if (s3.timerId){ clearInterval(s3.timerId); s3.timerId=null; }
+      s3.status.textContent = 'Auto-check is OFF.';
+    }
+    if (s3.toggle.checked){ scheduleHourly(); } // note: no immediate scan on load
+
+    async function startS3Scan(isManual){
+      try{
+        s3.running = true;
+        s3.cancelBtn.classList.remove('hidden');
+        s3.box.classList.remove('hidden');
+        s3.text.textContent = isManual ? 'Scanning S3 (manual)…' : 'Scanning S3…';
+        s3.bar.style.width='5%';
+        s3.list.innerHTML = '';
+
+        // optional status ping
+        fetch('/api/ingest/s3/status').then(r=> r.ok?r.json():null).then(js=>{
+          if (js){ s3.status.textContent = `${s3.toggle.checked ? 'Auto-check is ON (every hour).' : 'Auto-check is OFF.'} Last run: ${js.last_run || '—'}`; }
+        }).catch(()=>{});
+
+        // trigger scan
+        const resp = await fetch('/api/ingest/s3/scan', { method:'POST' });
+        if (!resp.ok) throw new Error(`Scan failed: ${resp.status}`);
+
+        // SSE stream
+        if (s3.streamES){ try{s3.streamES.close();}catch(_){ } }
+        const es = new EventSource('/api/ingest/s3/stream');
+        s3.streamES = es;
+
+        let total = 0, done = 0;
+        es.onmessage = (ev)=>{
+          try{
+            const data = JSON.parse(ev.data);
+            if (data.status === 'processing'){
+              total = data.totalFiles || total || 1;
+              done  = data.currentFile || done;
+              s3.text.textContent = `Processing ${data.filename || ''} (${done}/${total})…`;
+              s3.bar.style.width = `${Math.round(done/total*100)}%`;
+              appendS3Item(data.filename, 'processing');
+            } else if (data.status === 'processed'){
+              appendS3Item(data.filename, 'done');
+              loadHistory();
+            } else if (data.status === 'error'){
+              appendS3Item(data.filename || 'Unknown file', 'error', data.message);
+            } else if (data.status === 'complete'){
+              s3.text.textContent = 'S3 import complete.';
+              s3.bar.style.width = '100%';
+              Array.from(s3.list.children).forEach(li=> li.className = 'px-3 py-2 rounded text-sm bg-green-100');
+              loadHistory();
+              es.close();
+              s3.running = false;
+              s3.cancelBtn.classList.add('hidden');
+            } else if (data.status === 'cancelled'){
+              s3.text.textContent = 'S3 import cancelled.';
+              s3.bar.style.width = '0%';
+              es.close();
+              s3.running = false;
+              s3.cancelBtn.classList.add('hidden');
+            }
+          }catch(_){}
+        };
+
+        es.onerror = ()=>{ /* backend may close when done */ };
+      }catch(e){
+        s3.text.textContent = e.message || 'Scan error';
+        s3.running = false;
+        s3.cancelBtn.classList.add('hidden');
+      }
+    }
+
+    function appendS3Item(filename, state, msg){
+      if (!filename) return;
+      const li = document.createElement('li');
+      li.textContent = filename + (msg? ` — ${msg}`:'');
+      li.className = 'px-3 py-2 rounded text-sm ' + (
+        state==='error' ? 'bg-red-100' :
+        state==='processing' ? 'bg-blue-100' :
+        'bg-green-100'
+      );
+      s3.list.appendChild(li);
+    }
+  </script>
+</body>
+</html>

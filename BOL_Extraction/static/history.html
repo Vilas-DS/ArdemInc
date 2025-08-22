@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Extraction History • BOL Extractor</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ---- Same light theme + components used in index.html ---- */
+    :root{
+      --page-bg:#f5f7fb;
+      --text:#111827;
+      --muted:#4b5563;
+
+      --surface:#eef2f7;
+      --surface-alt:#e9edf3;
+      --border:#e5e7eb;
+
+      --primary:#4f46e5;
+      --primary-hover:#4338ca;
+      --neutral:#6b7280;
+      --neutral-hover:#4b5563;
+      --info:#2563eb;
+    }
+    body{
+      font-family:'Inter',sans-serif;
+      background:var(--page-bg);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    .surface{
+      background:var(--surface);
+      border-radius:12px;
+      box-shadow:0 6px 18px rgba(2,6,23,.12);
+      border:1px solid rgba(2,6,23,.06);
+    }
+    .btn{display:inline-flex;align-items:center;gap:.5rem;font-weight:600;border-radius:.75rem;padding:.65rem 1rem;transition:background .15s ease,transform .05s ease;}
+    .btn:active{transform:translateY(1px);}
+    .btn-primary{background:var(--primary);color:#fff;}
+    .btn-primary:hover{background:var(--primary-hover);}
+    .btn-neutral{background:var(--neutral);color:#fff;}
+    .btn-neutral:hover{background:var(--neutral-hover);}
+    .input{width:100%;border:1px solid var(--border);border-radius:.6rem;background:#fff;padding:.55rem .8rem;font-size:.95rem;outline:none;}
+    .input:focus{box-shadow:0 0 0 3px rgba(37,99,235,.25);border-color:var(--info);}
+    .link{color:var(--info);}
+    .link:hover{text-decoration:underline;}
+    .muted{color:var(--muted);}
+    .nav-item{display:flex;align-items:center;gap:.75rem;padding:.65rem .9rem;border-radius:.75rem;color:#0f172a;transition:background .15s;}
+    .nav-item:hover{background:#e5e7eb;}
+    .nav-item.active{background:#e0e7ff;color:#1e40af;font-weight:600;}
+  </style>
+</head>
+<body>
+  <!-- Shell: sidebar + content (same structure as index.html) -->
+  <div class="min-h-screen flex">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white border-r border-gray-200 px-4 py-5">
+      <div class="flex items-center gap-2 px-2 mb-6">
+        <div class="w-8 h-8 rounded-lg bg-indigo-600"></div>
+        <div>
+          <div class="text-sm text-gray-500 leading-tight">E-Cap</div>
+          <div class="font-semibold -mt-0.5">BOL Extractor</div>
+        </div>
+      </div>
+
+      <nav class="space-y-1">
+        <a href="/" class="nav-item">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a2 2 0 002 2h3m10-12l2 2m-2-2v10a2 2 0 01-2 2h-3m-6 0h6"/>
+          </svg>
+          Dashboard
+        </a>
+        <a href="/#uploader" class="nav-item">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                  d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-6l-4-4m0 0L8 10m4-4v12"/>
+          </svg>
+          Uploader
+        </a>
+        <a href="/history" class="nav-item active">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                  d="M8 7h8M8 11h8m-8 4h8M5 7h.01M5 11h.01M5 15h.01"/>
+          </svg>
+          View All
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main column -->
+    <div class="flex-1 flex flex-col">
+
+      <!-- Top bar -->
+      <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6">
+        <h1 class="text-xl font-semibold">Extraction History</h1>
+        <button class="btn btn-neutral">Logout</button>
+      </header>
+
+      <!-- Content -->
+      <main class="p-6">
+        <!-- Filters -->
+        <section class="surface p-4 mb-5">
+          <form id="filter-form" class="grid grid-cols-1 md:grid-cols-5 gap-3 items-end">
+            <div class="md:col-span-2">
+              <label class="block text-xs muted mb-1">Search filename</label>
+              <input id="q" type="text" placeholder="e.g. bradshaw, bol 0767…" class="input"/>
+            </div>
+            <div>
+              <label class="block text-xs muted mb-1">From date</label>
+              <input id="start" type="date" class="input"/>
+            </div>
+            <div>
+              <label class="block text-xs muted mb-1">To date</label>
+              <input id="end" type="date" class="input"/>
+            </div>
+            <div class="flex gap-2">
+              <button id="apply" class="flex-1 btn btn-primary">Apply</button>
+              <button id="reset" type="button" class="btn btn-neutral">Reset</button>
+            </div>
+          </form>
+        </section>
+
+        <!-- List -->
+        <section id="list" class="grid grid-cols-1 gap-3"></section>
+        <p id="empty" class="hidden muted mt-4">No results.</p>
+
+        <!-- Pager -->
+        <div class="flex items-center justify-between mt-6">
+          <div id="range" class="text-sm muted"></div>
+          <div class="flex gap-2">
+            <button id="prev" class="btn btn-neutral">Prev</button>
+            <button id="next" class="btn btn-neutral">Next</button>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // Keep nav highlight if someone lands via /history?...
+    [...document.querySelectorAll('.nav-item')].forEach(a=>{
+      if (a.getAttribute('href') === '/history') a.classList.add('active');
+    });
+
+    // History loader
+    const PAGE_SIZE = 50;
+    let offset = 0;
+
+    const els = {
+      form: document.getElementById('filter-form'),
+      q: document.getElementById('q'),
+      start: document.getElementById('start'),
+      end: document.getElementById('end'),
+      apply: document.getElementById('apply'),
+      reset: document.getElementById('reset'),
+      list: document.getElementById('list'),
+      empty: document.getElementById('empty'),
+      prev: document.getElementById('prev'),
+      next: document.getElementById('next'),
+      range: document.getElementById('range')
+    };
+
+    function buildParams() {
+      const p = new URLSearchParams();
+      p.set('limit', PAGE_SIZE);
+      p.set('offset', offset);
+      const q = els.q.value.trim();
+      const s = els.start.value;
+      const e = els.end.value;
+      if (q) p.set('q', q);
+      if (s) p.set('start_date', s);
+      if (e) p.set('end_date', e);
+      return p.toString();
+    }
+
+    async function load() {
+      const res = await fetch('/api/history?' + buildParams());
+      if (!res.ok) {
+        els.list.innerHTML = '';
+        els.empty.classList.remove('hidden');
+        els.range.textContent = '';
+        els.prev.disabled = true;
+        els.next.disabled = true;
+        return;
+      }
+      const data = await res.json();
+
+      els.list.innerHTML = '';
+      if (!Array.isArray(data) || data.length === 0) {
+        els.empty.classList.remove('hidden');
+        els.range.textContent = '';
+        els.next.disabled = true;
+        els.next.classList.add('opacity-50','cursor-not-allowed');
+        return;
+      }
+      els.empty.classList.add('hidden');
+
+      data.forEach(item=>{
+        const card = document.createElement('div');
+        card.className = 'surface p-4 flex items-center justify-between';
+        const metaBits = [
+          item.timestamp ? new Date(item.timestamp).toLocaleString() : null,
+          (typeof item.pages === 'number') ? `${item.pages} page(s)` : null,
+          (typeof item.bills === 'number') ? `${item.bills} bill(s)` : null
+        ].filter(Boolean).join(' • ');
+
+        card.innerHTML = `
+          <div class="min-w-0">
+            <div class="font-semibold truncate">${item.filename ?? 'Untitled.pdf'}</div>
+            <div class="text-xs muted mt-1">${metaBits}</div>
+          </div>
+          <div class="flex items-center gap-2 flex-shrink-0">
+            <a href="/results/${item.id}" target="_blank" class="btn btn-primary text-sm">View</a>
+          </div>
+        `;
+        els.list.appendChild(card);
+      });
+
+      const from = offset + 1;
+      const to   = offset + data.length;
+      els.range.textContent = `Showing ${from}–${to}`;
+
+      els.prev.disabled = offset === 0;
+      els.prev.classList.toggle('opacity-50', els.prev.disabled);
+      els.prev.classList.toggle('cursor-not-allowed', els.prev.disabled);
+
+      const noMore = data.length < PAGE_SIZE;
+      els.next.disabled = noMore;
+      els.next.classList.toggle('opacity-50', noMore);
+      els.next.classList.toggle('cursor-not-allowed', noMore);
+    }
+
+    els.apply.addEventListener('click', (e)=>{ e.preventDefault(); offset = 0; load(); });
+    els.reset.addEventListener('click', ()=>{ els.q.value=''; els.start.value=''; els.end.value=''; offset=0; load(); });
+    els.prev.addEventListener('click', ()=>{ if (offset===0) return; offset=Math.max(0, offset-PAGE_SIZE); load(); });
+    els.next.addEventListener('click', ()=>{ offset += PAGE_SIZE; load(); });
+
+    // initial
+    load();
+  </script>
+</body>
+</html>

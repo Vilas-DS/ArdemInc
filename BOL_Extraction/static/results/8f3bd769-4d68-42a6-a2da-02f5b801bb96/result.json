@@ -1,0 +1,907 @@
+{
+  "filename": "Bradshaw(5).pdf",
+  "data": {
+    "Bill_1": {
+      "required_json": {
+        "PRO": "",
+        "BOLNumber": "",
+        "Payment": "",
+        "Shipper": {
+          "Name": "",
+          "Street": "",
+          "CityStateZip": "",
+          "Phone": "",
+          "Contact": "",
+          "ReceivingHours": ""
+        },
+        "Consignee": {
+          "Name": "",
+          "Street": "",
+          "CityStateZip": "",
+          "Phone": "",
+          "Contact": "",
+          "ReceivingHours": ""
+        },
+        "BillTo": {
+          "Name": "",
+          "Street": "",
+          "CityStateZip": "",
+          "Contact": ""
+        },
+        "CustomerPO": "4758989722, 9082480536, GRANDTOTAL",
+        "LineItems": [
+          {
+            "NMFC": "13120.01",
+            "Class": "400",
+            "Pieces": 2,
+            "Description": "Other (brooms, brushes)",
+            "Weight": 26.8
+          },
+          {
+            "NMFC": "156600.04",
+            "Class": "175",
+            "Pieces": 5,
+            "Description": "palstic-disposable",
+            "Weight": 24.98
+          }
+        ],
+        "PickupDetails": {
+          "PickupID": "",
+          "PickupDate": "",
+          "ShipDate": "",
+          "MPO": "",
+          "MRF": "",
+          "MQuote": "",
+          "MBefore": "",
+          "MDim": "",
+          "MM": ""
+        }
+      },
+      "json_data": {
+        "Total Packages": "",
+        "Total Weight": "",
+        "Total Handling Units": "2",
+        "Customer Order Information": [
+          {
+            "CUSTOMER ORDER NUMBER": "4758989722",
+            "#PKGS": "5",
+            "WEIGHT (LB)": "24.98",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": "7514279-7654359"
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "9082480536",
+            "#PKGS": "2",
+            "WEIGHT (LB)": "26.80",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": "7511089-7654386"
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "GRANDTOTAL",
+            "#PKGS": "7",
+            "WEIGHT (LB)": "51.78",
+            "Pallet (Circle One)": "",
+            "Slip (Circle One)": "",
+            "ADDITIONAL SHIPPER INFO": ""
+          }
+        ],
+        "Carrier Information": [
+          {
+            "HANDLING UNITS QTY": "2",
+            "HANDLING UNITS TYPE": "Pallets",
+            "PACKAGE QTY": "2",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "26.80",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "Other (brooms, brushes)",
+            "(LTL ONLY) NMFC #": "13120.01",
+            "(LTL ONLY) CLASS": "400"
+          },
+          {
+            "HANDLING UNITS QTY": "",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "5",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "24.98",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "palstic-disposable",
+            "(LTL ONLY) NMFC #": "156600.04",
+            "(LTL ONLY) CLASS": "175"
+          }
+        ]
+      },
+      "data_tables": [
+        [
+          {
+            "CUSTOMER ORDER NUMBER": "4758989722",
+            "#PKGS": "5",
+            "WEIGHT (LB)": "24.98",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": "7514279-7654359"
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "9082480536",
+            "#PKGS": "2",
+            "WEIGHT (LB)": "26.80",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": "7511089-7654386"
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "GRANDTOTAL",
+            "#PKGS": "7",
+            "WEIGHT (LB)": "51.78",
+            "Pallet (Circle One)": "",
+            "Slip (Circle One)": "",
+            "ADDITIONAL SHIPPER INFO": ""
+          }
+        ],
+        [
+          {
+            "HANDLING UNITS QTY": "2",
+            "HANDLING UNITS TYPE": "Pallets",
+            "PACKAGE QTY": "2",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "26.80",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "Other (brooms, brushes)",
+            "(LTL ONLY) NMFC #": "13120.01",
+            "(LTL ONLY) CLASS": "400"
+          },
+          {
+            "HANDLING UNITS QTY": "",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "5",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "24.98",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "palstic-disposable",
+            "(LTL ONLY) NMFC #": "156600.04",
+            "(LTL ONLY) CLASS": "175"
+          },
+          {
+            "HANDLING UNITS QTY": "2",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "7",
+            "PACKAGE TYPE": "",
+            "WEIGHT (LB)": "51.78",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "GRAND TOTAL",
+            "(LTL ONLY) NMFC #": "",
+            "(LTL ONLY) CLASS": ""
+          }
+        ]
+      ],
+      "page_images": [
+        "/static/results/8f3bd769-4d68-42a6-a2da-02f5b801bb96/Bill_1/page_1.png"
+      ],
+      "pages": [
+        {
+          "absolute_page": 1,
+          "relative_page": 1,
+          "image_url": "/static/results/8f3bd769-4d68-42a6-a2da-02f5b801bb96/Bill_1/page_1.png",
+          "tables": [
+            [
+              {
+                "CUSTOMER ORDER NUMBER": "4758989722",
+                "#PKGS": "5",
+                "WEIGHT (LB)": "24.98",
+                "Pallet (Circle One)": "Y",
+                "Slip (Circle One)": "N",
+                "ADDITIONAL SHIPPER INFO": "7514279-7654359"
+              },
+              {
+                "CUSTOMER ORDER NUMBER": "9082480536",
+                "#PKGS": "2",
+                "WEIGHT (LB)": "26.80",
+                "Pallet (Circle One)": "Y",
+                "Slip (Circle One)": "N",
+                "ADDITIONAL SHIPPER INFO": "7511089-7654386"
+              },
+              {
+                "CUSTOMER ORDER NUMBER": "",
+                "#PKGS": "",
+                "WEIGHT (LB)": "",
+                "Pallet (Circle One)": "Y",
+                "Slip (Circle One)": "N",
+                "ADDITIONAL SHIPPER INFO": ""
+              },
+              {
+                "CUSTOMER ORDER NUMBER": "",
+                "#PKGS": "",
+                "WEIGHT (LB)": "",
+                "Pallet (Circle One)": "Y",
+                "Slip (Circle One)": "N",
+                "ADDITIONAL SHIPPER INFO": ""
+              },
+              {
+                "CUSTOMER ORDER NUMBER": "",
+                "#PKGS": "",
+                "WEIGHT (LB)": "",
+                "Pallet (Circle One)": "Y",
+                "Slip (Circle One)": "N",
+                "ADDITIONAL SHIPPER INFO": ""
+              },
+              {
+                "CUSTOMER ORDER NUMBER": "GRANDTOTAL",
+                "#PKGS": "7",
+                "WEIGHT (LB)": "51.78",
+                "Pallet (Circle One)": "",
+                "Slip (Circle One)": "",
+                "ADDITIONAL SHIPPER INFO": ""
+              }
+            ],
+            [
+              {
+                "HANDLING UNITS QTY": "2",
+                "HANDLING UNITS TYPE": "Pallets",
+                "PACKAGE QTY": "2",
+                "PACKAGE TYPE": "Case",
+                "WEIGHT (LB)": "26.80",
+                "H.M (X)": "",
+                "COMMODITY DESCRIPTION": "Other (brooms, brushes)",
+                "(LTL ONLY) NMFC #": "13120.01",
+                "(LTL ONLY) CLASS": "400"
+              },
+              {
+                "HANDLING UNITS QTY": "",
+                "HANDLING UNITS TYPE": "",
+                "PACKAGE QTY": "5",
+                "PACKAGE TYPE": "Case",
+                "WEIGHT (LB)": "24.98",
+                "H.M (X)": "",
+                "COMMODITY DESCRIPTION": "palstic-disposable",
+                "(LTL ONLY) NMFC #": "156600.04",
+                "(LTL ONLY) CLASS": "175"
+              },
+              {
+                "HANDLING UNITS QTY": "2",
+                "HANDLING UNITS TYPE": "",
+                "PACKAGE QTY": "7",
+                "PACKAGE TYPE": "",
+                "WEIGHT (LB)": "51.78",
+                "H.M (X)": "",
+                "COMMODITY DESCRIPTION": "GRAND TOTAL",
+                "(LTL ONLY) NMFC #": "",
+                "(LTL ONLY) CLASS": ""
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    "Bill_2": {
+      "required_json": {
+        "PRO": "",
+        "BOLNumber": "",
+        "Payment": "",
+        "Shipper": {
+          "Name": "",
+          "Street": "",
+          "CityStateZip": "",
+          "Phone": "",
+          "Contact": "",
+          "ReceivingHours": ""
+        },
+        "Consignee": {
+          "Name": "",
+          "Street": "",
+          "CityStateZip": "",
+          "Phone": "",
+          "Contact": "",
+          "ReceivingHours": ""
+        },
+        "BillTo": {
+          "Name": "",
+          "Street": "",
+          "CityStateZip": "",
+          "Contact": ""
+        },
+        "CustomerPO": "9082480536, GRANDTOTAL",
+        "LineItems": [
+          {
+            "NMFC": "13120.01",
+            "Class": "400",
+            "Pieces": 2,
+            "Description": "Other (brooms, brushes)",
+            "Weight": 26.8
+          }
+        ],
+        "PickupDetails": {
+          "PickupID": "",
+          "PickupDate": "",
+          "ShipDate": "",
+          "MPO": "",
+          "MRF": "",
+          "MQuote": "",
+          "MBefore": "",
+          "MDim": "",
+          "MM": ""
+        }
+      },
+      "json_data": {
+        "Total Packages": "",
+        "Total Weight": "",
+        "Total Handling Units": "1",
+        "Customer Order Information": [
+          {
+            "CUSTOMER ORDER NUMBER": "9082480536",
+            "#PKGS": "2",
+            "WEIGHT (LB)": "26.80",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": "7511089-7654386"
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "GRANDTOTAL",
+            "#PKGS": "2",
+            "WEIGHT (LB)": "26.80",
+            "Pallet (Circle One)": "",
+            "Slip (Circle One)": "",
+            "ADDITIONAL SHIPPER INFO": ""
+          }
+        ],
+        "Carrier Information": [
+          {
+            "HANDLING UNITS QTY": "1",
+            "HANDLING UNITS TYPE": "Pallets",
+            "PACKAGE QTY": "2",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "26.80",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "Other (brooms, brushes)",
+            "(LTL ONLY) NMFC #": "13120.01",
+            "(LTL ONLY) CLASS": "400"
+          }
+        ]
+      },
+      "data_tables": [
+        [
+          {
+            "CUSTOMER ORDER NUMBER": "9082480536",
+            "#PKGS": "2",
+            "WEIGHT (LB)": "26.80",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": "7511089-7654386"
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "GRANDTOTAL",
+            "#PKGS": "2",
+            "WEIGHT (LB)": "26.80",
+            "Pallet (Circle One)": "",
+            "Slip (Circle One)": "",
+            "ADDITIONAL SHIPPER INFO": ""
+          }
+        ],
+        [
+          {
+            "HANDLING UNITS QTY": "1",
+            "HANDLING UNITS TYPE": "Pallets",
+            "PACKAGE QTY": "2",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "26.80",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "Other (brooms, brushes)",
+            "(LTL ONLY) NMFC #": "13120.01",
+            "(LTL ONLY) CLASS": "400"
+          },
+          {
+            "HANDLING UNITS QTY": "1",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "2",
+            "PACKAGE TYPE": "",
+            "WEIGHT (LB)": "26.80",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "GRAND TOTAL",
+            "(LTL ONLY) NMFC #": "",
+            "(LTL ONLY) CLASS": ""
+          }
+        ]
+      ],
+      "page_images": [
+        "/static/results/8f3bd769-4d68-42a6-a2da-02f5b801bb96/Bill_2/page_1.png"
+      ],
+      "pages": [
+        {
+          "absolute_page": 1,
+          "relative_page": 1,
+          "image_url": "/static/results/8f3bd769-4d68-42a6-a2da-02f5b801bb96/Bill_2/page_1.png",
+          "tables": [
+            [
+              {
+                "CUSTOMER ORDER NUMBER": "9082480536",
+                "#PKGS": "2",
+                "WEIGHT (LB)": "26.80",
+                "Pallet (Circle One)": "Y",
+                "Slip (Circle One)": "N",
+                "ADDITIONAL SHIPPER INFO": "7511089-7654386"
+              },
+              {
+                "CUSTOMER ORDER NUMBER": "",
+                "#PKGS": "",
+                "WEIGHT (LB)": "",
+                "Pallet (Circle One)": "Y",
+                "Slip (Circle One)": "N",
+                "ADDITIONAL SHIPPER INFO": ""
+              },
+              {
+                "CUSTOMER ORDER NUMBER": "",
+                "#PKGS": "",
+                "WEIGHT (LB)": "",
+                "Pallet (Circle One)": "Y",
+                "Slip (Circle One)": "N",
+                "ADDITIONAL SHIPPER INFO": ""
+              },
+              {
+                "CUSTOMER ORDER NUMBER": "",
+                "#PKGS": "",
+                "WEIGHT (LB)": "",
+                "Pallet (Circle One)": "Y",
+                "Slip (Circle One)": "N",
+                "ADDITIONAL SHIPPER INFO": ""
+              },
+              {
+                "CUSTOMER ORDER NUMBER": "",
+                "#PKGS": "",
+                "WEIGHT (LB)": "",
+                "Pallet (Circle One)": "Y",
+                "Slip (Circle One)": "N",
+                "ADDITIONAL SHIPPER INFO": ""
+              },
+              {
+                "CUSTOMER ORDER NUMBER": "GRANDTOTAL",
+                "#PKGS": "2",
+                "WEIGHT (LB)": "26.80",
+                "Pallet (Circle One)": "",
+                "Slip (Circle One)": "",
+                "ADDITIONAL SHIPPER INFO": ""
+              }
+            ],
+            [
+              {
+                "HANDLING UNITS QTY": "1",
+                "HANDLING UNITS TYPE": "Pallets",
+                "PACKAGE QTY": "2",
+                "PACKAGE TYPE": "Case",
+                "WEIGHT (LB)": "26.80",
+                "H.M (X)": "",
+                "COMMODITY DESCRIPTION": "Other (brooms, brushes)",
+                "(LTL ONLY) NMFC #": "13120.01",
+                "(LTL ONLY) CLASS": "400"
+              },
+              {
+                "HANDLING UNITS QTY": "1",
+                "HANDLING UNITS TYPE": "",
+                "PACKAGE QTY": "2",
+                "PACKAGE TYPE": "",
+                "WEIGHT (LB)": "26.80",
+                "H.M (X)": "",
+                "COMMODITY DESCRIPTION": "GRAND TOTAL",
+                "(LTL ONLY) NMFC #": "",
+                "(LTL ONLY) CLASS": ""
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    "Bill_3": {
+      "required_json": {
+        "PRO": "",
+        "BOLNumber": "",
+        "Payment": "",
+        "Shipper": {
+          "Name": "",
+          "Street": "",
+          "CityStateZip": "",
+          "Phone": "",
+          "Contact": "",
+          "ReceivingHours": ""
+        },
+        "Consignee": {
+          "Name": "",
+          "Street": "",
+          "CityStateZip": "",
+          "Phone": "",
+          "Contact": "",
+          "ReceivingHours": ""
+        },
+        "BillTo": {
+          "Name": "",
+          "Street": "",
+          "CityStateZip": "",
+          "Contact": ""
+        },
+        "CustomerPO": "4758989722, GRANDTOTAL",
+        "LineItems": [
+          {
+            "NMFC": "156600.04",
+            "Class": "175",
+            "Pieces": 5,
+            "Description": "palstic-disposable",
+            "Weight": 24.98
+          },
+          {
+            "NMFC": "",
+            "Class": "",
+            "Pieces": 5,
+            "Description": "GRANDTOTAL",
+            "Weight": 24.98
+          }
+        ],
+        "PickupDetails": {
+          "PickupID": "",
+          "PickupDate": "",
+          "ShipDate": "",
+          "MPO": "",
+          "MRF": "",
+          "MQuote": "",
+          "MBefore": "",
+          "MDim": "",
+          "MM": ""
+        }
+      },
+      "json_data": {
+        "Total Packages": "",
+        "Total Weight": "",
+        "Total Handling Units": "",
+        "Customer Order Information": [
+          {
+            "CUSTOMER ORDER NUMBER": "4758989722",
+            "#PKGS": "5",
+            "WEIGHT (LB)": "24.98",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": "7514279-7654359"
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "GRANDTOTAL",
+            "#PKGS": "5",
+            "WEIGHT (LB)": "24.98",
+            "Pallet (Circle One)": "",
+            "Slip (Circle One)": "",
+            "ADDITIONAL SHIPPER INFO": ""
+          }
+        ],
+        "Carrier Information": [
+          {
+            "HANDLING UNITS QTY": "1",
+            "HANDLING UNITS TYPE": "Pallets",
+            "PACKAGE QTY": "5",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "24.98",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "palstic-disposable",
+            "(LTL ONLY) NMFC #": "156600.04",
+            "(LTL ONLY) CLASS": "175"
+          },
+          {
+            "HANDLING UNITS QTY": "1",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "5",
+            "PACKAGE TYPE": "",
+            "WEIGHT (LB)": "24.98",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "GRANDTOTAL",
+            "(LTL ONLY) NMFC #": "",
+            "(LTL ONLY) CLASS": ""
+          }
+        ]
+      },
+      "data_tables": [
+        [
+          {
+            "CUSTOMER ORDER NUMBER": "4758989722",
+            "#PKGS": "5",
+            "WEIGHT (LB)": "24.98",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": "7514279-7654359"
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "GRANDTOTAL",
+            "#PKGS": "5",
+            "WEIGHT (LB)": "24.98",
+            "Pallet (Circle One)": "",
+            "Slip (Circle One)": "",
+            "ADDITIONAL SHIPPER INFO": ""
+          }
+        ],
+        [
+          {
+            "HANDLING UNITS QTY": "1",
+            "HANDLING UNITS TYPE": "Pallets",
+            "PACKAGE QTY": "5",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "24.98",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "palstic-disposable",
+            "(LTL ONLY) NMFC #": "156600.04",
+            "(LTL ONLY) CLASS": "175"
+          },
+          {
+            "HANDLING UNITS QTY": "1",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "5",
+            "PACKAGE TYPE": "",
+            "WEIGHT (LB)": "24.98",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "GRANDTOTAL",
+            "(LTL ONLY) NMFC #": "",
+            "(LTL ONLY) CLASS": ""
+          }
+        ]
+      ],
+      "page_images": [
+        "/static/results/8f3bd769-4d68-42a6-a2da-02f5b801bb96/Bill_3/page_1.png"
+      ],
+      "pages": [
+        {
+          "absolute_page": 1,
+          "relative_page": 1,
+          "image_url": "/static/results/8f3bd769-4d68-42a6-a2da-02f5b801bb96/Bill_3/page_1.png",
+          "tables": [
+            [
+              {
+                "CUSTOMER ORDER NUMBER": "4758989722",
+                "#PKGS": "5",
+                "WEIGHT (LB)": "24.98",
+                "Pallet (Circle One)": "Y",
+                "Slip (Circle One)": "N",
+                "ADDITIONAL SHIPPER INFO": "7514279-7654359"
+              },
+              {
+                "CUSTOMER ORDER NUMBER": "",
+                "#PKGS": "",
+                "WEIGHT (LB)": "",
+                "Pallet (Circle One)": "Y",
+                "Slip (Circle One)": "N",
+                "ADDITIONAL SHIPPER INFO": ""
+              },
+              {
+                "CUSTOMER ORDER NUMBER": "",
+                "#PKGS": "",
+                "WEIGHT (LB)": "",
+                "Pallet (Circle One)": "Y",
+                "Slip (Circle One)": "N",
+                "ADDITIONAL SHIPPER INFO": ""
+              },
+              {
+                "CUSTOMER ORDER NUMBER": "",
+                "#PKGS": "",
+                "WEIGHT (LB)": "",
+                "Pallet (Circle One)": "Y",
+                "Slip (Circle One)": "N",
+                "ADDITIONAL SHIPPER INFO": ""
+              },
+              {
+                "CUSTOMER ORDER NUMBER": "",
+                "#PKGS": "",
+                "WEIGHT (LB)": "",
+                "Pallet (Circle One)": "Y",
+                "Slip (Circle One)": "N",
+                "ADDITIONAL SHIPPER INFO": ""
+              },
+              {
+                "CUSTOMER ORDER NUMBER": "GRANDTOTAL",
+                "#PKGS": "5",
+                "WEIGHT (LB)": "24.98",
+                "Pallet (Circle One)": "",
+                "Slip (Circle One)": "",
+                "ADDITIONAL SHIPPER INFO": ""
+              }
+            ],
+            [
+              {
+                "HANDLING UNITS QTY": "1",
+                "HANDLING UNITS TYPE": "Pallets",
+                "PACKAGE QTY": "5",
+                "PACKAGE TYPE": "Case",
+                "WEIGHT (LB)": "24.98",
+                "H.M (X)": "",
+                "COMMODITY DESCRIPTION": "palstic-disposable",
+                "(LTL ONLY) NMFC #": "156600.04",
+                "(LTL ONLY) CLASS": "175"
+              },
+              {
+                "HANDLING UNITS QTY": "1",
+                "HANDLING UNITS TYPE": "",
+                "PACKAGE QTY": "5",
+                "PACKAGE TYPE": "",
+                "WEIGHT (LB)": "24.98",
+                "H.M (X)": "",
+                "COMMODITY DESCRIPTION": "GRANDTOTAL",
+                "(LTL ONLY) NMFC #": "",
+                "(LTL ONLY) CLASS": ""
+              }
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  "meta": {
+    "pages": 3,
+    "bills": 3
+  }
+}

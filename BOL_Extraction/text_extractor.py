@@ -79,10 +79,70 @@ class JsonExtractor:
         self.logger = logger
         self.token = None
         self.model_prompt = """
-        You are an expert parsing Bill of Lading (BOL) documents. Extract all relevant information from the following BOL text into a structured JSON format. If a field is not found, include it with an empty string or null. Provide only the JSON output.
-        Example JSON:
-        {"Ship From": {"Company Name": "", "Address": "", "Contact": "", "Phone": ""}, "Ship To": {"Company Name": "", "Address": "", "Contact": "", "Phone": ""}, "Carrier Information": {"Carrier Name": "", "SCAC": "", "Pro Number": ""}, "Bill of Lading Number": "", "Pickup Date": "", "Special Instructions": "", "Total Pieces": "", "Total Weight": "", "Payment Terms": ""}
-        """
+                    You are an expert in parsing Bill of Lading (BOL) documents.
+                    Extract all visible and relevant information into a structured JSON format.
+                    If a field is missing, return it as an empty string ("") or null.
+                    Ensure that multi-value fields (like multiple underlying BOLs or BillTo customers)
+                    are returned as arrays. Keep all values as strings (including numeric), except the
+                    checkbox-style flags under Freight Charge Terms which must be booleans.
+
+                    Return only the JSON output. Do not include explanations or code fences.
+
+                    {
+                    "Ship From": {
+                        "Company Name": "",
+                        "Address": "",
+                        "CityStateZip": "",
+                        "Contact": "",
+                        "Phone": "",
+                        "FOB": ""
+                    },
+                    "Ship To": {
+                        "Company Name": "",
+                        "Address": "",
+                        "CityStateZip": "",
+                        "Contact": "",
+                        "Phone": "",
+                        "FOB": ""
+                    },
+                    "BillTo": {
+                        "Name": "",
+                        "Street": "",
+                        "CityStateZip": "",
+                        "Contact": ""
+                    },
+                    "Carrier Name": "",
+                    "Equipment": "",
+                    "Seal Numbers": [],
+                    "SCAC": "",
+                    "Pro Number": "",
+                    "Bill of Lading Number": "",
+                    "Underlying BOLs": [],
+                    "BillTo Customers": [],
+                    "Pickup Date": "",
+                    "Load Number": "",
+                    "Special Instructions": "",
+                    "Freight Charge Terms": {
+                        "Prepaid": false,
+                        "Collect": false,
+                        "ThirdParty": false
+                    },
+                    "Freight Description": [
+                        {
+                        "Quantity": "",
+                        "Units": "",
+                        "Description": "",
+                        "Weight": "",
+                        "Dimensions": ""
+                        }
+                    ],
+                    "Total Pieces": "",
+                    "Total Weight": "",
+                    "Payment Terms": ""
+                    }
+                    """
+
+
 
     def _load_credentials(self, config_path='config.ini'):
         config = configparser.ConfigParser()

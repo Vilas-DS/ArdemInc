@@ -1,431 +1,403 @@
 <!DOCTYPE html>
-<html lang="en" class="">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Extraction Results</title>
 
-  <!-- Tailwind & Google Fonts -->
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="/static/style.css">
 
   <style>
-    html { font-size: 70%; }
-    body { font-family: 'Inter', sans-serif; }
-    .responsive-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 1rem;
-      table-layout: fixed;
+    /* Scoped styles for the results page to avoid conflicts */
+    body {
+        background-color: #f8fafc; /* Match the main content background */
     }
-    .responsive-table th, .responsive-table td {
-      border: 1px solid #e5e7eb;
-      padding: 0.75rem;
-      text-align: left;
-      word-break: break-word;
-    }
-    html.dark .responsive-table th, html.dark .responsive-table td { border-color: #4a5568; }
-
-    .thumbnail {
-      cursor: pointer;
-      border: 2px solid transparent;
-      transition: border-color 0.2s;
-      border-radius: 6px;
-      object-fit: cover;
-    }
-    .thumbnail.active { border-color: #3b82f6; }
-
-    /* Image viewer: keeps image shape, supports dblclick zoom + pan */
+    /* Image viewer styles adapted for the new theme */
     .viewer {
       position: relative;
       width: 100%;
-      overflow: hidden;                 /* clip panning */
+      overflow: hidden;
       border-radius: 0.5rem;
-      border: 1px solid rgba(0,0,0,0.08);
-      background: white;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
     }
-    html.dark .viewer { background: #0f172a; border-color: #334155; }
-
     .viewer img.main-image {
       position: absolute;
-      top: 0; left: 0;
-      width: 100%;      /* fit container width */
-      height: auto;     /* preserve natural shape */
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: auto;
       user-select: none;
       -webkit-user-drag: none;
-      transform-origin: 0 0;            /* translate + scale from top-left */
-      transition: transform 160ms ease;
+      transform-origin: 0 0;
+      transition: transform .16s ease;
       will-change: transform;
     }
     .viewer.grabbing { cursor: grabbing; }
+    .thumbnail {
+      cursor: pointer;
+      border: 2px solid transparent;
+      border-radius: 0.5rem;
+      object-fit: cover;
+      transition: border-color 0.2s;
+    }
+    .thumbnail:hover { border-color: #d1d5db; }
+    .thumbnail.active { border-color: #2563eb; }
+
+    /* Table styles adapted to the new theme */
+    .table-wrap {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.75rem;
+      overflow: auto;
+    }
+    .responsive-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+    .responsive-table thead th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: #1f2a43; /* gray-50 */
+      color: #f2f4f6; /* gray-700 */
+      font-weight: 600;
+      text-align: left;
+      padding: .75rem 1rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .responsive-table td {
+      padding: .75rem 1rem;
+      text-align: left;
+      word-break: break-word;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .responsive-table tbody tr:last-child td {
+        border-bottom: none;
+    }
+    .responsive-table tbody tr:nth-child(even) { background: #f9fafb; }
   </style>
-
-  <!-- Apply saved theme early -->
-  <script>
-    (function () {
-      const saved = localStorage.getItem('theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (saved === 'dark' || (!saved && prefersDark)) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
-    })();
-  </script>
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
 
+<body>
   <!-- Loading -->
   <div id="loading" class="flex justify-center items-center h-screen">
     <div class="text-center">
-      <svg class="animate-spin h-8 w-8 text-blue-500 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <svg class="animate-spin h-8 w-8 text-blue-600 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
       </svg>
-      <p class="mt-2 text-lg">Loading Results...</p>
+      <p class="mt-2 text-lg text-gray-600">Loading Results...</p>
     </div>
   </div>
 
   <!-- Error -->
-  <div id="error-container" class="hidden container mx-auto p-8">
-    <div class="my-6 p-4 bg-red-100 dark:bg-red-900/50 border border-red-400 dark:border-red-600 text-red-700 dark:text-red-300 rounded-lg">
-      <h2 class="font-bold">Error</h2>
-      <p id="error-message" class="whitespace-pre-wrap"></p>
+  <div id="error-container" class="hidden container mx-auto p-6">
+    <div class="surface p-6">
+      <h2 class="text-xl font-bold mb-2 text-red-700">Error</h2>
+      <p id="error-message" class="whitespace-pre-wrap text-gray-600"></p>
     </div>
   </div>
 
   <!-- Results -->
-  <div id="results-container" class="hidden container mx-auto p-4 md:p-8">
-    <header class="mb-8 flex items-start justify-between">
-      <div>
-        <h1 class="text-3xl font-bold text-gray-900 dark:text-white">
-          Extraction Results: <span id="filename" class="font-medium"></span>
-        </h1>
-        <div class="mt-4 flex space-x-4">
-          <a id="download-json" href="#" class="px-4 py-2 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700">Download JSON</a>
-          <a href="/" class="px-4 py-2 bg-gray-500 text-white font-semibold rounded-lg shadow-md hover:bg-gray-600">Process More Files</a>
+  <div id="results-container" class="hidden p-4 md:p-8">
+    <header class="mb-8">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+            <h1 class="text-3xl font-bold text-gray-800">
+            Extraction Results: <span id="filename" class="font-medium text-gray-500"></span>
+            </h1>
+            <div class="flex gap-3 mt-4 md:mt-0">
+            <a id="download-json" href="#" class="btn btn-success">Download JSON</a>
+            <a href="/" class="btn btn-primary">Process More Files</a>
+            </div>
         </div>
-      </div>
-
-      <!-- Theme toggle (icon) -->
-      <button id="theme-toggle" class="p-2 rounded-full border border-gray-300 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700" aria-label="Toggle theme" title="Toggle theme">
-        <svg id="theme-icon" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"></svg>
-      </button>
     </header>
 
-    <main id="results-content" class="space-y-12"></main>
+    <main id="results-content" class="space-y-8"></main>
   </div>
 
   <script>
+    /* ==================== FETCH & RENDER ==================== */
     document.addEventListener('DOMContentLoaded', async () => {
-      initThemeToggle();
-
       const resultId = window.location.pathname.split('/')[2];
       if (!resultId) { showError("No result ID found."); return; }
-      
       try {
-        const response = await fetch(`/api/results/${resultId}`);
-        if (!response.ok) throw new Error((await response.json()).detail);
-        const result = await response.json();
+        const res = await fetch(`/api/results/${resultId}`);
+        if (!res.ok) throw new Error((await res.json()).detail);
+        const result = await res.json();
         renderPage(result, resultId);
-      } catch (err) {
-        showError(err.message);
+      } catch (e) {
+        showError(e.message);
       }
     });
 
-    /* === THEME TOGGLE (icon) === */
-    function initThemeToggle() {
-      const icon = document.getElementById('theme-icon');
-      const btn = document.getElementById('theme-toggle');
-      const setIcon = () => {
-        const dark = document.documentElement.classList.contains('dark');
-        icon.innerHTML = dark
-          ? `<circle cx="12" cy="12" r="5" stroke-width="2"></circle>
-             <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M16.95 16.95l1.42 1.42M1 12h2M21 12h2" stroke-width="2" stroke-linecap="round"></path>`
-          : `<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>`;
-      };
-      setIcon();
-      btn.addEventListener('click', () => {
-        const darkNow = !document.documentElement.classList.contains('dark');
-        document.documentElement.classList.toggle('dark', darkNow);
-        localStorage.setItem('theme', darkNow ? 'dark' : 'light');
-        setIcon();
-      });
-    }
-
-    /* === PAGE RENDER === */
-    function renderPage(result, resultId) {
+    function renderPage(result, resultId){
       document.getElementById('filename').textContent = result.filename;
       document.getElementById('download-json').href = `/api/download/json/${resultId}`;
-      
-      const resultsContent = document.getElementById('results-content');
-      resultsContent.innerHTML = '';
-      
+
+      const host = document.getElementById('results-content');
+      host.innerHTML = '';
+
       if (!result.data || Object.keys(result.data).length === 0) {
-        resultsContent.innerHTML = '<p>No data extracted.</p>';
+        host.innerHTML = '<div class="surface p-4">No data extracted.</div>';
       } else {
         for (const billName in result.data) {
-          resultsContent.appendChild(renderBill(billName, result.data[billName], resultId));
+          host.appendChild(renderBill(billName, result.data[billName], resultId, result.filename));
         }
       }
-      
+
       document.getElementById('loading').classList.add('hidden');
       document.getElementById('results-container').classList.remove('hidden');
     }
 
-    /* === BILL SECTION === */
-    function renderBill(billName, billData, resultId) {
-      const billSection = document.createElement('section');
-      billSection.className = 'p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg';
-      
-      const billTitle = document.createElement('h2');
-      billTitle.className = 'text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6 border-b border-gray-200 dark:border-gray-700 pb-4';
-      billTitle.textContent = billName.replace(/_/g, ' ');
-      billSection.appendChild(billTitle);
+    function renderBill(billName, billData, resultId, filename){
+      const section = document.createElement('section');
+      section.className = 'surface p-6';
 
-      const layoutGrid = document.createElement('div');
-      layoutGrid.className = 'grid grid-cols-1 lg:grid-cols-3 gap-8';
-      billSection.appendChild(layoutGrid);
+      /* Header */
+      const head = document.createElement('div');
+      head.className = 'pb-4 border-b border-gray-200 flex items-center justify-between';
+      const title = document.createElement('h2');
+      title.className = 'text-2xl font-bold text-gray-800';
+      title.textContent = billName.replace(/_/g, ' ');
+      head.appendChild(title);
 
-      const imageCol = document.createElement('div');
-      imageCol.className = 'lg:col-span-1 lg:sticky lg:top-8 self-start';
-      if (billData.page_images && billData.page_images.length > 0) {
-        imageCol.appendChild(renderImageViewer(billData.page_images));
+      if (billData.required_json){
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'btn btn-primary';
+        btn.textContent = 'Bill JSON Data';
+        btn.addEventListener('click', () => {
+          const dataStr = JSON.stringify(billData.required_json, null, 2);
+          const blob = new Blob([dataStr], { type:'application/json' });
+          const url = URL.createObjectURL(blob);
+          const safeFile = (filename||'result').replace(/[^a-z0-9._-]+/gi,'_');
+          const safeBill = billName.replace(/[^a-z0-9._-]+/gi,'_');
+          const a = document.createElement('a');
+          a.href = url; a.download = `${safeFile}_${safeBill}_required.json`;
+          document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+        });
+        head.appendChild(btn);
       }
-      layoutGrid.appendChild(imageCol);
+      section.appendChild(head);
 
-      const dataCol = document.createElement('div');
-      dataCol.className = 'lg:col-span-2';
-      layoutGrid.appendChild(dataCol);
+        /* ---------------- 40/60 layout ---------------- */
+        const grid = document.createElement('div');
+        grid.className = 'grid grid-cols-1 xl:grid-cols-5 gap-6 mt-6';
+        section.appendChild(grid);
 
-      // Split into K/V and table-like arrays
-      const { keyValues, tablesFromJSON } = separateJsonData(billData.json_data || {});
-      // Hide redundant sections from K/V and JSON tables
-      const HIDE = new Set(['carrier information','customer order information','carrier info','customer order info']);
-      const norm = s => String(s||'').toLowerCase().replace(/[_()-]/g,' ').replace(/\s+/g,' ').trim();
+        /* Left 40%: Image viewer (sticky for long tables) */
+        const left = document.createElement('div');
+        left.className = 'xl:sticky xl:top-8 self-start xl:col-span-2';
+        if (billData.page_images?.length) {
+            left.appendChild(renderImageViewer(billData.page_images));
+        }
+        grid.appendChild(left);
 
-      // Filter K/V
-      const filteredKV = {};
-      for (const k in keyValues) {
-        if (!HIDE.has(norm(k))) filteredKV[k] = keyValues[k];
+        /* Right 60%: Extracted Fields + Tables */
+        const right = document.createElement('div');
+        right.className = 'space-y-6 xl:col-span-3';
+        grid.appendChild(right);
+
+
+      const { keyValues } = separateJsonData(billData.json_data || {});
+      delete keyValues["Carrier Information"];
+      delete keyValues["Customer Order Information"];
+
+      if (Object.keys(keyValues).length){
+        right.appendChild(makeSectionTitle('Extracted Fields'));
+        right.appendChild(createKeyValueDisplay(keyValues));
       }
-      if (Object.keys(filteredKV).length > 0) {
-        dataCol.appendChild(createSectionTitle('Extracted Fields'));
-        dataCol.appendChild(createKeyValueDisplay(filteredKV));
-      }
 
-      // Filter JSON-derived tables by title
-      for (const tableName in tablesFromJSON) {
-        if (HIDE.has(norm(tableName))) continue; // skip Carrier/Customer sections
-        dataCol.appendChild(createSectionTitle(tableName));
-        dataCol.appendChild(createTableFromData(tablesFromJSON[tableName]));
-      }
-
-      // Detected document tables
-      if (billData.data_tables?.length > 0) {
-        dataCol.appendChild(createSectionTitle('Detected Document Tables'));
-        billData.data_tables.forEach((tableData, index) => {
-          const downloadUrl = `/api/download/excel/${resultId}/${billName}/${index}`;
-          dataCol.appendChild(createTableFromData(tableData, `Table ${index + 1}`, downloadUrl));
+      if (billData.data_tables?.length){
+        right.appendChild(makeSectionTitle('Detected Document Tables'));
+        billData.data_tables.forEach((tbl, idx) => {
+          const url = `/api/download/excel/${resultId}/${billName}/${idx}`;
+          right.appendChild(createTableFromData(tbl, `Table ${idx+1}`, url));
         });
       }
 
-      return billSection;
+      return section;
     }
 
-    /* === IMAGE VIEWER (dblclick zoom + pan, original shape) === */
-    function renderImageViewer(imageUrls) {
+    /* ==================== IMAGE VIEWER ==================== */
+    function renderImageViewer(imageUrls){
       const container = document.createElement('div');
 
       const viewer = document.createElement('div');
       viewer.className = 'viewer';
       container.appendChild(viewer);
 
-      const mainImage = document.createElement('img');
-      mainImage.src = imageUrls[0];
-      mainImage.className = 'main-image rounded-lg';
-      mainImage.alt = 'Document page';
-      viewer.appendChild(mainImage);
+      const main = document.createElement('img');
+      main.src = imageUrls[0];
+      main.className = 'main-image';
+      main.alt = 'Document page';
+      viewer.appendChild(main);
 
-      // Thumbnails (unchanged)
       if (imageUrls.length > 1) {
-        const thumbnailContainer = document.createElement('div');
-        thumbnailContainer.className = 'mt-4 grid grid-cols-4 md:grid-cols-5 lg:grid-cols-4 gap-2';
-        imageUrls.forEach((url, index) => {
-          const thumb = document.createElement('img');
-          thumb.src = url;
-          thumb.className = 'w-full h-16 rounded thumbnail object-cover';
-          if (index === 0) thumb.classList.add('active');
-
-          thumb.addEventListener('click', () => {
-            mainImage.src = url;
-            resetZoom();
-            thumbnailContainer.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
-            thumb.classList.add('active');
+        const thumbs = document.createElement('div');
+        thumbs.className = 'mt-4 grid grid-cols-4 md:grid-cols-5 gap-2';
+        imageUrls.forEach((url, i) => {
+          const t = document.createElement('img');
+          t.src = url; t.className = 'thumbnail';
+          if (i===0) t.classList.add('active');
+          t.addEventListener('click', () => {
+            main.src = url; resetZoom();
+            thumbs.querySelectorAll('.thumbnail').forEach(e => e.classList.remove('active'));
+            t.classList.add('active');
           });
-          thumbnailContainer.appendChild(thumb);
+          thumbs.appendChild(t);
         });
-        container.appendChild(thumbnailContainer);
+        container.appendChild(thumbs);
       }
 
-      // Keep viewer height matching image aspect ratio
-      function sizeViewerToImage() {
-        const nw = mainImage.naturalWidth || 0;
-        const nh = mainImage.naturalHeight || 0;
+      function sizeViewer(){
+        const nw = main.naturalWidth || 0, nh = main.naturalHeight || 0;
         if (!nw || !nh) return;
-        const w = viewer.clientWidth;
-        const ratio = nh / nw;
-        viewer.style.height = (w * ratio) + 'px';
+        const w = viewer.clientWidth, ratio = nh / nw;
+        const desired = Math.min(w * ratio, 760);
+        viewer.style.height = desired + 'px';
       }
-      mainImage.addEventListener('load', () => { sizeViewerToImage(); clampWithinBounds(); applyTransform(); });
-      window.addEventListener('resize', () => { sizeViewerToImage(); clampWithinBounds(); applyTransform(); });
-      setTimeout(sizeViewerToImage, 0);
 
-      // Zoom + pan
-      let scale = 1, tx = 0, ty = 0, isZoomed = false;
-      let dragStart = null; // {x,y,tx,ty}
-      const ZOOM_FACTOR = 2;
+      main.addEventListener('load', () => { sizeViewer(); clamp(); apply(); });
+      window.addEventListener('resize', () => { sizeViewer(); clamp(); apply(); });
+      setTimeout(sizeViewer, 0);
 
-      function applyTransform() { mainImage.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`; }
-      function getBoundsForScale(s) {
-        const v = viewer.getBoundingClientRect();
-        const r = mainImage.getBoundingClientRect();
-        const displayedW = r.width, displayedH = r.height;
-        const scaledW = displayedW * s, scaledH = displayedH * s;
-        return {
-          minX: Math.min(0, v.width - scaledW),
-          maxX: 0,
-          minY: Math.min(0, v.height - scaledH),
-          maxY: 0
-        };
+      let scale=1, zoomed=false, tx=0, ty=0, drag=null;
+      const Z=2;
+
+      function apply(){ main.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`; }
+      function bounds(s){
+        const v = viewer.getBoundingClientRect(), i = main.getBoundingClientRect();
+        const w = i.width * s, h = i.height * s;
+        return { minX: Math.min(0, v.width - w), maxX: 0, minY: Math.min(0, v.height - h), maxY: 0 };
       }
-      function clampWithinBounds() {
-        const b = getBoundsForScale(scale);
-        tx = Math.max(b.minX, Math.min(b.maxX, tx));
-        ty = Math.max(b.minY, Math.min(b.maxY, ty));
-      }
-      function resetZoom() { scale = 1; tx = 0; ty = 0; isZoomed = false; applyTransform(); }
+      function clamp(){ const b = bounds(scale); tx = Math.max(b.minX, Math.min(b.maxX, tx)); ty = Math.max(b.minY, Math.min(b.maxY, ty)); }
+      function resetZoom(){ scale=1; zoomed=false; tx=0; ty=0; apply(); }
 
-      viewer.addEventListener('dblclick', (ev) => {
-        ev.preventDefault();
-        const r = mainImage.getBoundingClientRect();
-        const cx = ev.clientX - r.left;
-        const cy = ev.clientY - r.top;
-        if (!isZoomed) {
-          const s = ZOOM_FACTOR;
-          // keep click under cursor
-          let desiredX = -cx * (s - 1);
-          let desiredY = -cy * (s - 1);
-          const b = getBoundsForScale(s);
-          tx = Math.max(b.minX, Math.min(b.maxX, desiredX));
-          ty = Math.max(b.minY, Math.min(b.maxY, desiredY));
-          scale = s;
-          isZoomed = true;
-        } else {
-          resetZoom();
-        }
-        applyTransform();
+      viewer.addEventListener('dblclick', (e)=>{
+        e.preventDefault();
+        const r = main.getBoundingClientRect(), cx = e.clientX - r.left, cy = e.clientY - r.top;
+        if (!zoomed) {
+          const s = Z, b = bounds(s);
+          tx = Math.max(b.minX, Math.min(b.maxX, -cx * (s-1)));
+          ty = Math.max(b.minY, Math.min(b.maxY, -cy * (s-1)));
+          scale = s; zoomed = true;
+        } else { resetZoom(); }
+        apply();
       });
 
-      viewer.addEventListener('pointerdown', (ev) => {
-        if (!isZoomed) return;
-        ev.preventDefault();
-        viewer.classList.add('grabbing');
-        dragStart = { x: ev.clientX, y: ev.clientY, tx, ty };
-        try { viewer.setPointerCapture(ev.pointerId); } catch(e){}
+      viewer.addEventListener('pointerdown', (e)=>{
+        if (!zoomed) return;
+        e.preventDefault(); viewer.classList.add('grabbing');
+        drag = { x:e.clientX, y:e.clientY, tx, ty };
+        try{ viewer.setPointerCapture(e.pointerId); }catch(_){}
       });
-      const move = (ev) => {
-        if (!dragStart) return;
-        ev.preventDefault();
-        const dx = ev.clientX - dragStart.x;
-        const dy = ev.clientY - dragStart.y;
-        const b = getBoundsForScale(scale);
-        tx = Math.max(b.minX, Math.min(b.maxX, dragStart.tx + dx));
-        ty = Math.max(b.minY, Math.min(b.maxY, dragStart.ty + dy));
-        applyTransform();
-      };
-      const end = (ev) => {
-        if (!dragStart) return;
-        dragStart = null;
-        viewer.classList.remove('grabbing');
-        try { viewer.releasePointerCapture(ev.pointerId); } catch(e){}
-      };
-      window.addEventListener('pointermove', move);
-      window.addEventListener('pointerup', end);
-      window.addEventListener('pointercancel', end);
+      viewer.addEventListener('pointermove', (e)=>{
+        if (!drag) return;
+        e.preventDefault();
+        const dx = e.clientX - drag.x, dy = e.clientY - drag.y, b = bounds(scale);
+        tx = Math.max(b.minX, Math.min(b.maxX, drag.tx + dx));
+        ty = Math.max(b.minY, Math.min(b.maxY, drag.ty + dy));
+        apply();
+      });
+      function endDrag(e){ if(!drag) return; drag=null; viewer.classList.remove('grabbing'); try{ viewer.releasePointerCapture(e.pointerId); }catch(_){ } }
+      viewer.addEventListener('pointerup', endDrag);
+      viewer.addEventListener('pointercancel', endDrag);
+      viewer.addEventListener('pointerleave', endDrag);
 
       return container;
     }
 
-    /* === JSON helpers (unchanged) === */
-    function separateJsonData(jsonData) {
-      const keyValues = {}, tablesFromJSON = {};
-      for (const key in jsonData) {
-        const val = jsonData[key];
-        if (Array.isArray(val) && val.length > 0 && typeof val[0] === 'object') {
-          tablesFromJSON[key] = val;
+    /* ==================== HELPERS ==================== */
+    function separateJsonData(jsonData){
+      const keyValues={}, tables={};
+      for (const k in jsonData) {
+        if (Array.isArray(jsonData[k]) && jsonData[k].length && typeof jsonData[k][0] === 'object') {
+          tables[k] = jsonData[k];
         } else {
-          keyValues[key] = val;
+          keyValues[k] = jsonData[k];
         }
       }
-      return { keyValues, tablesFromJSON };
+      return { keyValues, tables };
     }
 
-    function createSectionTitle(title) {
-      const h4 = document.createElement('h4');
-      h4.className = 'text-xl font-semibold mt-4 mb-3 text-gray-700 dark:text-gray-300 border-b border-gray-200 dark:border-gray-700 pb-2';
-      h4.textContent = title;
-      return h4;
+    function makeSectionTitle(text){
+      const h = document.createElement('h4');
+      h.className = 'text-xl font-semibold text-gray-700';
+      h.textContent = text;
+      return h;
     }
 
-    function createKeyValueDisplay(data) {
-      const container = document.createElement('div');
-      container.className = 'grid grid-cols-1 md:grid-cols-2 gap-4';
+    function createKeyValueDisplay(data){
+      const grid = document.createElement('div');
+      grid.className = 'grid grid-cols-1 md:grid-cols-2 gap-4';
       for (const key in data) {
         const value = data[key];
         const item = document.createElement('div');
-        item.className = 'p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg';
-        item.innerHTML += `<p class="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-1">${key}</p>`;
+        item.className = 'bg-gray-50 p-3 rounded-md border border-gray-200';
+        item.innerHTML += `<p class="text-sm font-semibold mb-1 text-gray-500">${key}</p>`;
         if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
           item.appendChild(createKeyValueDisplay(value));
         } else {
-          item.innerHTML += `<p class="text-base font-medium break-words">${(value === null || value === '') ? '' : value}</p>`;
+          item.innerHTML += `<p class="text-base font-medium break-words text-gray-800">${(value === null || value === '') ? '—' : value}</p>`;
         }
-        container.appendChild(item);
+        grid.appendChild(item);
       }
-      return container;
+      return grid;
     }
 
-    function createTableFromData(tableData, captionText, downloadUrl) {
+    function createTableFromData(tableData, captionText, downloadUrl){
       const container = document.createElement('div');
-      container.className = 'mb-6';
+      container.className = 'space-y-3';
+
       const header = document.createElement('div');
-      header.className = 'flex justify-between items-center mb-2';
-      if (captionText) { header.innerHTML += `<p class="text-lg font-medium">${captionText}</p>`; }
-      if (downloadUrl) { header.innerHTML += `<a href="${downloadUrl}" class="px-3 py-1 bg-teal-600 text-white text-xs font-semibold rounded-full hover:bg-teal-700 transition">Download Excel</a>`; }
+      header.className = 'flex items-center justify-between';
+      if (captionText) header.innerHTML += `<p class="font-semibold text-gray-700">${captionText}</p>`;
+      if (downloadUrl) {
+          const downloadLink = document.createElement('a');
+          downloadLink.href = downloadUrl;
+          downloadLink.className = 'btn btn-primary text-xs';
+          downloadLink.textContent = 'Download Excel';
+          header.appendChild(downloadLink);
+      }
       container.appendChild(header);
-      if (!tableData || tableData.length === 0 || typeof tableData[0] !== 'object') {
-        container.innerHTML += `<p class="text-gray-500 italic p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">No valid data for this table.</p>`;
+
+      if (!tableData || !tableData.length || typeof tableData[0] !== 'object') {
+        const msg = document.createElement('div');
+        msg.className = 'surface p-4 italic text-gray-500';
+        msg.textContent = 'No valid data for this table.';
+        container.appendChild(msg);
         return container;
       }
-      const tableWrapper = document.createElement('div');
-      tableWrapper.className = 'overflow-x-auto rounded-lg border dark:border-gray-700';
+
+      const wrap = document.createElement('div');
+      wrap.className = 'table-wrap';
       const table = document.createElement('table');
       table.className = 'responsive-table';
+
       const headers = Object.keys(tableData[0]);
-      table.innerHTML = `<thead><tr class="bg-gray-50 dark:bg-gray-700">${headers.map(h => `<th>${h}</th>`).join('')}</tr></thead>
-                       <tbody>${tableData.map(row => `<tr>${headers.map(h => `<td>${(row[h] === null || row[h] === '') ? '' : row[h]}</td>`).join('')}</tr>`).join('')}</tbody>`;
-      tableWrapper.appendChild(table);
-      container.appendChild(tableWrapper);
+      table.innerHTML =
+        `<thead><tr>${headers.map(h=>`<th>${h}</th>`).join('')}</tr></thead>` +
+        `<tbody>${tableData.map(row => `<tr>${headers.map(h => `<td>${(row[h]==null || row[h]==='') ? '' : row[h]}</td>`).join('')}</tr>`).join('')}</tbody>`;
+
+      wrap.appendChild(table);
+      container.appendChild(wrap);
       return container;
     }
 
-    function showError(message) {
+    function showError(message){
       document.getElementById('loading').classList.add('hidden');
       document.getElementById('results-container').classList.add('hidden');
-      const errorContainer = document.getElementById('error-container');
-      errorContainer.querySelector('#error-message').textContent = message;
-      errorContainer.classList.remove('hidden');
+      const box = document.getElementById('error-container');
+      box.querySelector('#error-message').textContent = message;
+      box.classList.remove('hidden');
     }
   </script>
 </body>

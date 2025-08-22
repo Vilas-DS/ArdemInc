@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fusion BOL Extraction</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js for Dashboard Charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+  <div class="main-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar flex flex-col">
+      <div class="sidebar-header">Fusion Bill of Landings Extraction</div>
+      <nav class="flex flex-col">
+        <a class="nav-link active" data-page="dashboard">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
+          Dashboard
+        </a>
+        <a class="nav-link" data-page="uploader">
+           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
+          Uploader
+        </a>
+        <a class="nav-link" data-page="view-all">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
+          View All
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <header class="content-header">
+        <div class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
+            <h1 id="page-title" class="text-xl font-semibold text-gray-800">Dashboard</h1>
+        </div>
+        <div class="flex items-center space-x-4">
+            <!-- Dark mode and logout are static for now -->
+            <button class="text-gray-500 hover:text-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+            </button>
+            <button class="bg-gray-800 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Logout</button>
+        </div>
+      </header>
+      
+      <div class="page">
+        <!-- Dashboard Page Content -->
+        <div id="dashboard-page" class="page-content active">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-bold text-gray-800">Dashboard</h2>
+                <div class="flex items-center space-x-2">
+                    <input type="date" id="dash-start-date" class="input text-sm">
+                    <span class="text-gray-500">to</span>
+                    <input type="date" id="dash-end-date" class="input text-sm">
+                    <button id="dash-clear" class="btn btn-neutral">Clear</button>
+                </div>
+            </div>
+
+            <!-- Summary Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="surface p-6 flex items-center bg-blue-500 text-white rounded-lg">
+                    <div class="p-3 bg-white bg-opacity-25 rounded-full mr-4"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" /></svg></div>
+                    <div>
+                        <div id="summary-received" class="text-3xl font-bold">0</div>
+                        <div class="text-sm">Received</div>
+                    </div>
+                </div>
+                 <div class="surface p-6 flex items-center bg-green-500 text-white rounded-lg">
+                    <div class="p-3 bg-white bg-opacity-25 rounded-full mr-4"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
+                    <div>
+                        <div id="summary-processed" class="text-3xl font-bold">0</div>
+                        <div class="text-sm">Processed</div>
+                    </div>
+                </div>
+                <div class="surface p-6 flex items-center bg-orange-500 text-white rounded-lg">
+                    <div class="p-3 bg-white bg-opacity-25 rounded-full mr-4"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10l2 2h8a1 1 0 001-1zM3 11h10M16 16l4-4m0 0l-4-4m4 4H9" /></svg></div>
+                    <div>
+                        <div id="summary-delivered" class="text-3xl font-bold">0</div>
+                        <div class="text-sm">Delivered</div>
+                    </div>
+                </div>
+                <div class="surface p-6 flex items-center bg-red-500 text-white rounded-lg">
+                    <div class="p-3 bg-white bg-opacity-25 rounded-full mr-4"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg></div>
+                    <div>
+                        <div id="summary-rejected" class="text-3xl font-bold">0</div>
+                        <div class="text-sm">Rejected</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+                <div class="lg:col-span-2 surface p-6">
+                    <h3 class="text-lg font-semibold mb-4">Status Breakdown</h3>
+                    <canvas id="status-breakdown-chart"></canvas>
+                </div>
+                <div class="lg:col-span-3 surface p-6">
+                    <h3 class="text-lg font-semibold mb-4">Weekly Trends</h3>
+                    <canvas id="weekly-trends-chart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Uploader Page Content -->
+        <div id="uploader-page" class="page-content">
+          <main class="max-w-6xl mx-auto space-y-8">
+            <!-- Upload -->
+            <div class="surface p-8">
+              <div class="flex items-center mb-4">
+                <svg class="w-8 h-8 mr-3 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                <h2 class="text-2xl font-semibold">Upload Your Files</h2>
+              </div>
+              <div id="drop-zone" class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center transition-all">
+                <input type="file" id="pdfFiles" accept=".pdf" multiple class="hidden"/>
+                <label for="pdfFiles" class="cursor-pointer">
+                  <svg class="mx-auto h-12 w-12 text-gray-500" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true"><path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  <p class="mt-2 text-sm muted"><span class="font-semibold link">Click to upload</span> or drag and drop</p>
+                  <p class="text-xs muted">PDF files only</p>
+                </label>
+                <div id="file-list" class="mt-4 text-left text-sm"></div>
+              </div>
+              <div class="flex items-center justify-center gap-3 mt-6">
+                <button id="uploadButton" class="btn btn-primary">Extract Data</button>
+                <button id="cancelUpload" class="btn btn-neutral hidden">Cancel</button>
+              </div>
+              <div id="progress-container" class="hidden mt-6">
+                <p id="progress-text" class="text-center mb-2 muted">Starting...</p>
+                <div class="w-full bg-gray-200 rounded-full h-2.5"><div id="progress-bar" class="bg-blue-600 h-2.5 rounded-full transition-all" style="width: 0%"></div></div>
+              </div>
+              <div id="error-container" class="hidden my-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg"></div>
+              <ul id="processing-list" class="mt-6 space-y-2"></ul>
+            </div>
+            <!-- S3 Auto-Import -->
+            <div class="surface p-8">
+              <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center">
+                  <svg class="w-8 h-8 mr-3 text-emerald-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 15a4 4 0 004 4h10a4 4 0 004-4V9a4 4 0 00-4-4h-2l-2-2H7a4 4 0 00-4 4v8z"/></svg>
+                  <h2 class="text-2xl font-semibold">S3 Auto-Import</h2>
+                </div>
+                <div class="flex items-center gap-3">
+                  <label class="inline-flex items-center cursor-pointer">
+                    <input type="checkbox" id="s3-auto-toggle" class="sr-only peer">
+                    <div class="w-11 h-6 bg-gray-200 rounded-full peer-checked:bg-emerald-600 relative transition-colors"><span class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-all peer-checked:translate-x-5"></span></div>
+                    <span class="ml-2 text-sm">Auto-check hourly</span>
+                  </label>
+                  <button id="s3-scan-now" class="btn btn-success">Scan S3 now</button>
+                  <button id="s3-cancel" class="btn btn-danger hidden">Cancel</button>
+                </div>
+              </div>
+              <p id="s3-status" class="text-sm muted">Auto-check is OFF.</p>
+              <div id="s3-progress" class="hidden mt-4">
+                <p id="s3-progress-text" class="text-sm mb-2">Starting…</p>
+                <div class="w-full bg-gray-200 rounded-full h-2.5"><div id="s3-progress-bar" class="h-2.5 rounded-full transition-all" style="width:0%; background:#059669;"></div></div>
+                <ul id="s3-file-list" class="mt-4 space-y-2"></ul>
+              </div>
+            </div>
+          </main>
+        </div>
+
+        <!-- View All Page Content -->
+        <div id="view-all-page" class="page-content">
+          <div class="max-w-7xl mx-auto">
+            <!-- Filters -->
+            <div class="surface p-4 mb-6">
+              <form id="filter-form" class="grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
+                <div class="md:col-span-2">
+                  <label class="block text-xs muted mb-1">Search filename</label>
+                  <input id="q" type="text" placeholder="e.g. invoice, bradshaw" class="input"/>
+                </div>
+                <div>
+                  <label class="block text-xs muted mb-1">From date</label>
+                  <input id="start" type="date" class="input"/>
+                </div>
+                <div>
+                  <label class="block text-xs muted mb-1">To date</label>
+                  <input id="end" type="date" class="input"/>
+                </div>
+                <div class="flex gap-2">
+                  <button id="apply" class="flex-1 btn btn-primary">Apply</button>
+                  <button id="reset" type="button" class="btn btn-neutral">Reset</button>
+                </div>
+              </form>
+            </div>
+            <!-- List -->
+            <div id="list" class="grid grid-cols-1 gap-4"></div>
+            <div id="empty" class="hidden muted mt-4 text-center">No results.</div>
+            <!-- Pager -->
+            <div class="flex items-center justify-between mt-6">
+              <div id="range" class="text-sm muted"></div>
+              <div class="flex gap-2">
+                <button id="prev" class="btn btn-neutral">Prev</button>
+                <button id="next" class="btn btn-neutral">Next</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Custom Script -->
+  <script src="/static/script.js"></script>
+</body>
+</html>

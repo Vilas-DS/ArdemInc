@@ -1,0 +1,1473 @@
+{
+  "filename": "Bradshaw(1).pdf",
+  "data": {
+    "Bill_1": {
+      "json_data": {
+        "Total Packages": "",
+        "Total Weight": "",
+        "Total Handling Units": "8",
+        "Customer Order Information": [
+          {
+            "CUSTOMER ORDER NUMBER": "3209458463",
+            "#PKGS": "155",
+            "WEIGHT (LB)": "774.23",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": "7515986-7655790"
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "5030149547",
+            "#PKGS": "48",
+            "WEIGHT (LB)": "374.61",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": "7514929-7655797"
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "8581416557",
+            "#PKGS": "64",
+            "WEIGHT (LB)": "823.40",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": "7514917-7655775"
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "GRANDTOTAL",
+            "#PKGS": "267",
+            "WEIGHT (LB)": "1972.23",
+            "Pallet (Circle One)": "",
+            "Slip (Circle One)": "",
+            "ADDITIONAL SHIPPER INFO": ""
+          }
+        ],
+        "Carrier Information": [
+          {
+            "HANDLING UNITS QTY": "8",
+            "HANDLING UNITS TYPE": "Pallets",
+            "PACKAGE QTY": "5",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "147.12",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "TABLE/KITCHENWARE",
+            "(LTL ONLY) NMFC #": "101425.07",
+            "(LTL ONLY) CLASS": "92.5"
+          },
+          {
+            "HANDLING UNITS QTY": "",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "61",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "817.40",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "Other (brooms, brushes)",
+            "(LTL ONLY) NMFC #": "13120.01",
+            "(LTL ONLY) CLASS": "400"
+          },
+          {
+            "HANDLING UNITS QTY": "",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "2",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "9.12",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "thermometer other",
+            "(LTL ONLY) NMFC #": "13120.01",
+            "(LTL ONLY) CLASS": "400"
+          },
+          {
+            "HANDLING UNITS QTY": "",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "155",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "774.23",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "palstic-disposable",
+            "(LTL ONLY) NMFC #": "156600.04",
+            "(LTL ONLY) CLASS": "175"
+          },
+          {
+            "HANDLING UNITS QTY": "",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "4",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "30.72",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "STOPPERS,LIDS.CAPS,& OTHER CLOSURES,OF PLASTIC",
+            "(LTL ONLY) NMFC #": "156600.07",
+            "(LTL ONLY) CLASS": "92.5"
+          },
+          {
+            "HANDLING UNITS QTY": "",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "6",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "16.85",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "Household Tools,Kitchen& Table",
+            "(LTL ONLY) NMFC #": "156600.08",
+            "(LTL ONLY) CLASS": "85"
+          },
+          {
+            "HANDLING UNITS QTY": "",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "3",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "6.00",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "Other (brooms, brushes)",
+            "(LTL ONLY) NMFC #": "33010.03",
+            "(LTL ONLY) CLASS": "250"
+          },
+          {
+            "HANDLING UNITS QTY": "",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "20",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "52.00",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "Kitchen/tableware, tin plate",
+            "(LTL ONLY) NMFC #": "52900.08",
+            "(LTL ONLY) CLASS": "85"
+          },
+          {
+            "HANDLING UNITS QTY": "",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "11",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "118.80",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "Cookingware. Not coated",
+            "(LTL ONLY) NMFC #": "52900.11",
+            "(LTL ONLY) CLASS": "60"
+          }
+        ]
+      },
+      "data_tables": [
+        [
+          {
+            "CUSTOMER ORDER NUMBER": "3209458463",
+            "#PKGS": "155",
+            "WEIGHT (LB)": "774.23",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": "7515986-7655790"
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "5030149547",
+            "#PKGS": "48",
+            "WEIGHT (LB)": "374.61",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": "7514929-7655797"
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "8581416557",
+            "#PKGS": "64",
+            "WEIGHT (LB)": "823.40",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": "7514917-7655775"
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "GRANDTOTAL",
+            "#PKGS": "267",
+            "WEIGHT (LB)": "1972.23",
+            "Pallet (Circle One)": "",
+            "Slip (Circle One)": "",
+            "ADDITIONAL SHIPPER INFO": ""
+          }
+        ],
+        [
+          {
+            "HANDLING UNITS QTY": "8",
+            "HANDLING UNITS TYPE": "Pallets",
+            "PACKAGE QTY": "5",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "147.12",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "TABLE/KITCHENWARE",
+            "(LTL ONLY) NMFC #": "101425.07",
+            "(LTL ONLY) CLASS": "92.5"
+          },
+          {
+            "HANDLING UNITS QTY": "",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "61",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "817.40",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "Other (brooms, brushes)",
+            "(LTL ONLY) NMFC #": "13120.01",
+            "(LTL ONLY) CLASS": "400"
+          },
+          {
+            "HANDLING UNITS QTY": "",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "2",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "9.12",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "thermometer other",
+            "(LTL ONLY) NMFC #": "13120.01",
+            "(LTL ONLY) CLASS": "400"
+          },
+          {
+            "HANDLING UNITS QTY": "",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "155",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "774.23",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "palstic-disposable",
+            "(LTL ONLY) NMFC #": "156600.04",
+            "(LTL ONLY) CLASS": "175"
+          },
+          {
+            "HANDLING UNITS QTY": "",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "4",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "30.72",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "STOPPERS,LIDS.CAPS,& OTHER CLOSURES,OF PLASTIC",
+            "(LTL ONLY) NMFC #": "156600.07",
+            "(LTL ONLY) CLASS": "92.5"
+          },
+          {
+            "HANDLING UNITS QTY": "",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "6",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "16.85",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "Household Tools,Kitchen& Table",
+            "(LTL ONLY) NMFC #": "156600.08",
+            "(LTL ONLY) CLASS": "85"
+          },
+          {
+            "HANDLING UNITS QTY": "",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "3",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "6.00",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "Other (brooms, brushes)",
+            "(LTL ONLY) NMFC #": "33010.03",
+            "(LTL ONLY) CLASS": "250"
+          },
+          {
+            "HANDLING UNITS QTY": "",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "20",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "52.00",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "Kitchen/tableware, tin plate",
+            "(LTL ONLY) NMFC #": "52900.08",
+            "(LTL ONLY) CLASS": "85"
+          },
+          {
+            "HANDLING UNITS QTY": "",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "11",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "118.80",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "Cookingware. Not coated",
+            "(LTL ONLY) NMFC #": "52900.11",
+            "(LTL ONLY) CLASS": "60"
+          },
+          {
+            "HANDLING UNITS QTY": "8",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "267",
+            "PACKAGE TYPE": "",
+            "WEIGHT (LB)": "1972.23",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "GRAND TOTAL",
+            "(LTL ONLY) NMFC #": "",
+            "(LTL ONLY) CLASS": ""
+          }
+        ]
+      ],
+      "page_images": [
+        "/static/results/537ce474-1577-4004-88c4-a1543d8a5f78/Bill_1/page_1.png",
+        "/static/results/537ce474-1577-4004-88c4-a1543d8a5f78/Bill_1/page_2.png"
+      ],
+      "pages": [
+        {
+          "absolute_page": 1,
+          "relative_page": 1,
+          "image_url": "/static/results/537ce474-1577-4004-88c4-a1543d8a5f78/Bill_1/page_1.png",
+          "tables": [
+            [
+              {
+                "CUSTOMER ORDER NUMBER": "3209458463",
+                "#PKGS": "155",
+                "WEIGHT (LB)": "774.23",
+                "Pallet (Circle One)": "Y",
+                "Slip (Circle One)": "N",
+                "ADDITIONAL SHIPPER INFO": "7515986-7655790"
+              },
+              {
+                "CUSTOMER ORDER NUMBER": "5030149547",
+                "#PKGS": "48",
+                "WEIGHT (LB)": "374.61",
+                "Pallet (Circle One)": "Y",
+                "Slip (Circle One)": "N",
+                "ADDITIONAL SHIPPER INFO": "7514929-7655797"
+              },
+              {
+                "CUSTOMER ORDER NUMBER": "8581416557",
+                "#PKGS": "64",
+                "WEIGHT (LB)": "823.40",
+                "Pallet (Circle One)": "Y",
+                "Slip (Circle One)": "N",
+                "ADDITIONAL SHIPPER INFO": "7514917-7655775"
+              },
+              {
+                "CUSTOMER ORDER NUMBER": "",
+                "#PKGS": "",
+                "WEIGHT (LB)": "",
+                "Pallet (Circle One)": "Y",
+                "Slip (Circle One)": "N",
+                "ADDITIONAL SHIPPER INFO": ""
+              },
+              {
+                "CUSTOMER ORDER NUMBER": "",
+                "#PKGS": "",
+                "WEIGHT (LB)": "",
+                "Pallet (Circle One)": "Y",
+                "Slip (Circle One)": "N",
+                "ADDITIONAL SHIPPER INFO": ""
+              },
+              {
+                "CUSTOMER ORDER NUMBER": "GRANDTOTAL",
+                "#PKGS": "267",
+                "WEIGHT (LB)": "1972.23",
+                "Pallet (Circle One)": "",
+                "Slip (Circle One)": "",
+                "ADDITIONAL SHIPPER INFO": ""
+              }
+            ]
+          ]
+        },
+        {
+          "absolute_page": 2,
+          "relative_page": 2,
+          "image_url": "/static/results/537ce474-1577-4004-88c4-a1543d8a5f78/Bill_1/page_2.png",
+          "tables": [
+            [
+              {
+                "HANDLING UNITS QTY": "8",
+                "HANDLING UNITS TYPE": "Pallets",
+                "PACKAGE QTY": "5",
+                "PACKAGE TYPE": "Case",
+                "WEIGHT (LB)": "147.12",
+                "H.M (X)": "",
+                "COMMODITY DESCRIPTION": "TABLE/KITCHENWARE",
+                "(LTL ONLY) NMFC #": "101425.07",
+                "(LTL ONLY) CLASS": "92.5"
+              },
+              {
+                "HANDLING UNITS QTY": "",
+                "HANDLING UNITS TYPE": "",
+                "PACKAGE QTY": "61",
+                "PACKAGE TYPE": "Case",
+                "WEIGHT (LB)": "817.40",
+                "H.M (X)": "",
+                "COMMODITY DESCRIPTION": "Other (brooms, brushes)",
+                "(LTL ONLY) NMFC #": "13120.01",
+                "(LTL ONLY) CLASS": "400"
+              },
+              {
+                "HANDLING UNITS QTY": "",
+                "HANDLING UNITS TYPE": "",
+                "PACKAGE QTY": "2",
+                "PACKAGE TYPE": "Case",
+                "WEIGHT (LB)": "9.12",
+                "H.M (X)": "",
+                "COMMODITY DESCRIPTION": "thermometer other",
+                "(LTL ONLY) NMFC #": "13120.01",
+                "(LTL ONLY) CLASS": "400"
+              },
+              {
+                "HANDLING UNITS QTY": "",
+                "HANDLING UNITS TYPE": "",
+                "PACKAGE QTY": "155",
+                "PACKAGE TYPE": "Case",
+                "WEIGHT (LB)": "774.23",
+                "H.M (X)": "",
+                "COMMODITY DESCRIPTION": "palstic-disposable",
+                "(LTL ONLY) NMFC #": "156600.04",
+                "(LTL ONLY) CLASS": "175"
+              },
+              {
+                "HANDLING UNITS QTY": "",
+                "HANDLING UNITS TYPE": "",
+                "PACKAGE QTY": "4",
+                "PACKAGE TYPE": "Case",
+                "WEIGHT (LB)": "30.72",
+                "H.M (X)": "",
+                "COMMODITY DESCRIPTION": "STOPPERS,LIDS.CAPS,& OTHER CLOSURES,OF PLASTIC",
+                "(LTL ONLY) NMFC #": "156600.07",
+                "(LTL ONLY) CLASS": "92.5"
+              },
+              {
+                "HANDLING UNITS QTY": "",
+                "HANDLING UNITS TYPE": "",
+                "PACKAGE QTY": "6",
+                "PACKAGE TYPE": "Case",
+                "WEIGHT (LB)": "16.85",
+                "H.M (X)": "",
+                "COMMODITY DESCRIPTION": "Household Tools,Kitchen& Table",
+                "(LTL ONLY) NMFC #": "156600.08",
+                "(LTL ONLY) CLASS": "85"
+              },
+              {
+                "HANDLING UNITS QTY": "",
+                "HANDLING UNITS TYPE": "",
+                "PACKAGE QTY": "3",
+                "PACKAGE TYPE": "Case",
+                "WEIGHT (LB)": "6.00",
+                "H.M (X)": "",
+                "COMMODITY DESCRIPTION": "Other (brooms, brushes)",
+                "(LTL ONLY) NMFC #": "33010.03",
+                "(LTL ONLY) CLASS": "250"
+              },
+              {
+                "HANDLING UNITS QTY": "",
+                "HANDLING UNITS TYPE": "",
+                "PACKAGE QTY": "20",
+                "PACKAGE TYPE": "Case",
+                "WEIGHT (LB)": "52.00",
+                "H.M (X)": "",
+                "COMMODITY DESCRIPTION": "Kitchen/tableware, tin plate",
+                "(LTL ONLY) NMFC #": "52900.08",
+                "(LTL ONLY) CLASS": "85"
+              },
+              {
+                "HANDLING UNITS QTY": "",
+                "HANDLING UNITS TYPE": "",
+                "PACKAGE QTY": "11",
+                "PACKAGE TYPE": "Case",
+                "WEIGHT (LB)": "118.80",
+                "H.M (X)": "",
+                "COMMODITY DESCRIPTION": "Cookingware. Not coated",
+                "(LTL ONLY) NMFC #": "52900.11",
+                "(LTL ONLY) CLASS": "60"
+              },
+              {
+                "HANDLING UNITS QTY": "8",
+                "HANDLING UNITS TYPE": "",
+                "PACKAGE QTY": "267",
+                "PACKAGE TYPE": "",
+                "WEIGHT (LB)": "1972.23",
+                "H.M (X)": "",
+                "COMMODITY DESCRIPTION": "GRAND TOTAL",
+                "(LTL ONLY) NMFC #": "",
+                "(LTL ONLY) CLASS": ""
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    "Bill_2": {
+      "json_data": {
+        "Total Packages": "",
+        "Total Weight": "",
+        "Total Handling Units": "6",
+        "Customer Order Information": [
+          {
+            "CUSTOMER ORDER NUMBER": "8581416557",
+            "#PKGS": "64",
+            "WEIGHT (LB)": "823.40",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": "7514917-7655775"
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "GRANDTOTAL",
+            "#PKGS": "64",
+            "WEIGHT (LB)": "823.40",
+            "Pallet (Circle One)": "",
+            "Slip (Circle One)": "",
+            "ADDITIONAL SHIPPER INFO": ""
+          }
+        ],
+        "Carrier Information": [
+          {
+            "HANDLING UNITS QTY": "6",
+            "HANDLING UNITS TYPE": "Pallets",
+            "PACKAGE QTY": "61",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "817.40",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "Other (brooms, brushes)",
+            "(LTL ONLY) NMFC #": "13120.01",
+            "(LTL ONLY) CLASS": "400"
+          },
+          {
+            "HANDLING UNITS QTY": "",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "3",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "6.00",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "Other (brooms, brushes)",
+            "(LTL ONLY) NMFC #": "33010.03",
+            "(LTL ONLY) CLASS": "250"
+          },
+          {
+            "HANDLING UNITS QTY": "Where the declared v \"The aaree",
+            "HANDLING UNITS TYPE": "rate is dependen alue of the proper d or declared val",
+            "PACKAGE QTY": "ton value,s ty as follow ue of the or",
+            "PACKAGE TYPE": "hippers are req 5: opertv is snecific",
+            "WEIGHT (LB)": "ired to state specific allv stated bv the shit",
+            "H.M (X)": "nnAE ner tohe",
+            "COMMODITY DESCRIPTION": "ing the agreed or COD Amount:$ Fee Terms: Collect' not exceeding",
+            "(LTL ONLY) NMFC #": "Pren:",
+            "(LTL ONLY) CLASS": "aid"
+          }
+        ]
+      },
+      "data_tables": [
+        [
+          {
+            "CUSTOMER ORDER NUMBER": "8581416557",
+            "#PKGS": "64",
+            "WEIGHT (LB)": "823.40",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": "7514917-7655775"
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "GRANDTOTAL",
+            "#PKGS": "64",
+            "WEIGHT (LB)": "823.40",
+            "Pallet (Circle One)": "",
+            "Slip (Circle One)": "",
+            "ADDITIONAL SHIPPER INFO": ""
+          }
+        ],
+        [
+          {
+            "HANDLING UNITS QTY": "6",
+            "HANDLING UNITS TYPE": "Pallets",
+            "PACKAGE QTY": "61",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "817.40",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "Other (brooms, brushes)",
+            "(LTL ONLY) NMFC #": "13120.01",
+            "(LTL ONLY) CLASS": "400"
+          },
+          {
+            "HANDLING UNITS QTY": "",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "3",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "6.00",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "Other (brooms, brushes)",
+            "(LTL ONLY) NMFC #": "33010.03",
+            "(LTL ONLY) CLASS": "250"
+          },
+          {
+            "HANDLING UNITS QTY": "6",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "64",
+            "PACKAGE TYPE": "",
+            "WEIGHT (LB)": "823.40",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "GRAND TOTAL",
+            "(LTL ONLY) NMFC #": "",
+            "(LTL ONLY) CLASS": ""
+          },
+          {
+            "HANDLING UNITS QTY": "Where the declared v \"The aaree",
+            "HANDLING UNITS TYPE": "rate is dependen alue of the proper d or declared val",
+            "PACKAGE QTY": "ton value,s ty as follow ue of the or",
+            "PACKAGE TYPE": "hippers are req 5: opertv is snecific",
+            "WEIGHT (LB)": "ired to state specific allv stated bv the shit",
+            "H.M (X)": "nnAE ner tohe",
+            "COMMODITY DESCRIPTION": "ing the agreed or COD Amount:$ Fee Terms: Collect' not exceeding",
+            "(LTL ONLY) NMFC #": "Pren:",
+            "(LTL ONLY) CLASS": "aid"
+          }
+        ]
+      ],
+      "page_images": [
+        "/static/results/537ce474-1577-4004-88c4-a1543d8a5f78/Bill_2/page_1.png"
+      ],
+      "pages": [
+        {
+          "absolute_page": 1,
+          "relative_page": 1,
+          "image_url": "/static/results/537ce474-1577-4004-88c4-a1543d8a5f78/Bill_2/page_1.png",
+          "tables": [
+            [
+              {
+                "CUSTOMER ORDER NUMBER": "8581416557",
+                "#PKGS": "64",
+                "WEIGHT (LB)": "823.40",
+                "Pallet (Circle One)": "Y",
+                "Slip (Circle One)": "N",
+                "ADDITIONAL SHIPPER INFO": "7514917-7655775"
+              },
+              {
+                "CUSTOMER ORDER NUMBER": "",
+                "#PKGS": "",
+                "WEIGHT (LB)": "",
+                "Pallet (Circle One)": "Y",
+                "Slip (Circle One)": "N",
+                "ADDITIONAL SHIPPER INFO": ""
+              },
+              {
+                "CUSTOMER ORDER NUMBER": "",
+                "#PKGS": "",
+                "WEIGHT (LB)": "",
+                "Pallet (Circle One)": "Y",
+                "Slip (Circle One)": "N",
+                "ADDITIONAL SHIPPER INFO": ""
+              },
+              {
+                "CUSTOMER ORDER NUMBER": "",
+                "#PKGS": "",
+                "WEIGHT (LB)": "",
+                "Pallet (Circle One)": "Y",
+                "Slip (Circle One)": "N",
+                "ADDITIONAL SHIPPER INFO": ""
+              },
+              {
+                "CUSTOMER ORDER NUMBER": "",
+                "#PKGS": "",
+                "WEIGHT (LB)": "",
+                "Pallet (Circle One)": "Y",
+                "Slip (Circle One)": "N",
+                "ADDITIONAL SHIPPER INFO": ""
+              },
+              {
+                "CUSTOMER ORDER NUMBER": "GRANDTOTAL",
+                "#PKGS": "64",
+                "WEIGHT (LB)": "823.40",
+                "Pallet (Circle One)": "",
+                "Slip (Circle One)": "",
+                "ADDITIONAL SHIPPER INFO": ""
+              }
+            ],
+            [
+              {
+                "HANDLING UNITS QTY": "6",
+                "HANDLING UNITS TYPE": "Pallets",
+                "PACKAGE QTY": "61",
+                "PACKAGE TYPE": "Case",
+                "WEIGHT (LB)": "817.40",
+                "H.M (X)": "",
+                "COMMODITY DESCRIPTION": "Other (brooms, brushes)",
+                "(LTL ONLY) NMFC #": "13120.01",
+                "(LTL ONLY) CLASS": "400"
+              },
+              {
+                "HANDLING UNITS QTY": "",
+                "HANDLING UNITS TYPE": "",
+                "PACKAGE QTY": "3",
+                "PACKAGE TYPE": "Case",
+                "WEIGHT (LB)": "6.00",
+                "H.M (X)": "",
+                "COMMODITY DESCRIPTION": "Other (brooms, brushes)",
+                "(LTL ONLY) NMFC #": "33010.03",
+                "(LTL ONLY) CLASS": "250"
+              },
+              {
+                "HANDLING UNITS QTY": "6",
+                "HANDLING UNITS TYPE": "",
+                "PACKAGE QTY": "64",
+                "PACKAGE TYPE": "",
+                "WEIGHT (LB)": "823.40",
+                "H.M (X)": "",
+                "COMMODITY DESCRIPTION": "GRAND TOTAL",
+                "(LTL ONLY) NMFC #": "",
+                "(LTL ONLY) CLASS": ""
+              },
+              {
+                "HANDLING UNITS QTY": "Where the declared v \"The aaree",
+                "HANDLING UNITS TYPE": "rate is dependen alue of the proper d or declared val",
+                "PACKAGE QTY": "ton value,s ty as follow ue of the or",
+                "PACKAGE TYPE": "hippers are req 5: opertv is snecific",
+                "WEIGHT (LB)": "ired to state specific allv stated bv the shit",
+                "H.M (X)": "nnAE ner tohe",
+                "COMMODITY DESCRIPTION": "ing the agreed or COD Amount:$ Fee Terms: Collect' not exceeding",
+                "(LTL ONLY) NMFC #": "Pren:",
+                "(LTL ONLY) CLASS": "aid"
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    "Bill_3": {
+      "json_data": {
+        "Total Packages": "155",
+        "Total Weight": "774.23",
+        "Total Handling Units": "1",
+        "Customer Order Information": [
+          {
+            "CUSTOMER ORDER NUMBER": "3209458463",
+            "#PKGS": "155",
+            "WEIGHT (LB)": "774.23",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": "7515986-7655790"
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          }
+        ],
+        "Carrier Information": [
+          {
+            "HANDLING UNITS QTY": "1",
+            "HANDLING UNITS TYPE": "Pallets",
+            "PACKAGE QTY": "155",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "774.23",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "palstic-disposable",
+            "(LTL ONLY) NMFC #": "156600.04",
+            "(LTL ONLY) CLASS": "175"
+          },
+          {
+            "HANDLING UNITS QTY": "Wherethe Naalorad..",
+            "HANDLING UNITS TYPE": "rate is dependen",
+            "PACKAGE QTY": "t on value,s",
+            "PACKAGE TYPE": "hippers are req",
+            "WEIGHT (LB)": "ired to state specific",
+            "H.M (X)": "ally in writ",
+            "COMMODITY DESCRIPTION": "ing the agreed or I cOD Amount: $",
+            "(LTL ONLY) NMFC #": "",
+            "(LTL ONLY) CLASS": ""
+          }
+        ]
+      },
+      "data_tables": [
+        [
+          {
+            "CUSTOMER ORDER NUMBER": "3209458463",
+            "#PKGS": "155",
+            "WEIGHT (LB)": "774.23",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": "7515986-7655790"
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "GRAND TOTAL",
+            "#PKGS": "155",
+            "WEIGHT (LB)": "774.23",
+            "Pallet (Circle One)": "",
+            "Slip (Circle One)": "",
+            "ADDITIONAL SHIPPER INFO": ""
+          }
+        ],
+        [
+          {
+            "HANDLING UNITS QTY": "1",
+            "HANDLING UNITS TYPE": "Pallets",
+            "PACKAGE QTY": "155",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "774.23",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "palstic-disposable",
+            "(LTL ONLY) NMFC #": "156600.04",
+            "(LTL ONLY) CLASS": "175"
+          },
+          {
+            "HANDLING UNITS QTY": "1",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "155",
+            "PACKAGE TYPE": "",
+            "WEIGHT (LB)": "774.23",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "GRAND TOTAL",
+            "(LTL ONLY) NMFC #": "",
+            "(LTL ONLY) CLASS": ""
+          },
+          {
+            "HANDLING UNITS QTY": "Wherethe Naalorad..",
+            "HANDLING UNITS TYPE": "rate is dependen",
+            "PACKAGE QTY": "t on value,s",
+            "PACKAGE TYPE": "hippers are req",
+            "WEIGHT (LB)": "ired to state specific",
+            "H.M (X)": "ally in writ",
+            "COMMODITY DESCRIPTION": "ing the agreed or I cOD Amount: $",
+            "(LTL ONLY) NMFC #": "",
+            "(LTL ONLY) CLASS": ""
+          }
+        ]
+      ],
+      "page_images": [
+        "/static/results/537ce474-1577-4004-88c4-a1543d8a5f78/Bill_3/page_1.png"
+      ],
+      "pages": [
+        {
+          "absolute_page": 1,
+          "relative_page": 1,
+          "image_url": "/static/results/537ce474-1577-4004-88c4-a1543d8a5f78/Bill_3/page_1.png",
+          "tables": [
+            [
+              {
+                "CUSTOMER ORDER NUMBER": "3209458463",
+                "#PKGS": "155",
+                "WEIGHT (LB)": "774.23",
+                "Pallet (Circle One)": "Y",
+                "Slip (Circle One)": "N",
+                "ADDITIONAL SHIPPER INFO": "7515986-7655790"
+              },
+              {
+                "CUSTOMER ORDER NUMBER": "",
+                "#PKGS": "",
+                "WEIGHT (LB)": "",
+                "Pallet (Circle One)": "Y",
+                "Slip (Circle One)": "N",
+                "ADDITIONAL SHIPPER INFO": ""
+              },
+              {
+                "CUSTOMER ORDER NUMBER": "",
+                "#PKGS": "",
+                "WEIGHT (LB)": "",
+                "Pallet (Circle One)": "Y",
+                "Slip (Circle One)": "N",
+                "ADDITIONAL SHIPPER INFO": ""
+              },
+              {
+                "CUSTOMER ORDER NUMBER": "",
+                "#PKGS": "",
+                "WEIGHT (LB)": "",
+                "Pallet (Circle One)": "Y",
+                "Slip (Circle One)": "N",
+                "ADDITIONAL SHIPPER INFO": ""
+              },
+              {
+                "CUSTOMER ORDER NUMBER": "",
+                "#PKGS": "",
+                "WEIGHT (LB)": "",
+                "Pallet (Circle One)": "Y",
+                "Slip (Circle One)": "N",
+                "ADDITIONAL SHIPPER INFO": ""
+              },
+              {
+                "CUSTOMER ORDER NUMBER": "GRAND TOTAL",
+                "#PKGS": "155",
+                "WEIGHT (LB)": "774.23",
+                "Pallet (Circle One)": "",
+                "Slip (Circle One)": "",
+                "ADDITIONAL SHIPPER INFO": ""
+              }
+            ],
+            [
+              {
+                "HANDLING UNITS QTY": "1",
+                "HANDLING UNITS TYPE": "Pallets",
+                "PACKAGE QTY": "155",
+                "PACKAGE TYPE": "Case",
+                "WEIGHT (LB)": "774.23",
+                "H.M (X)": "",
+                "COMMODITY DESCRIPTION": "palstic-disposable",
+                "(LTL ONLY) NMFC #": "156600.04",
+                "(LTL ONLY) CLASS": "175"
+              },
+              {
+                "HANDLING UNITS QTY": "1",
+                "HANDLING UNITS TYPE": "",
+                "PACKAGE QTY": "155",
+                "PACKAGE TYPE": "",
+                "WEIGHT (LB)": "774.23",
+                "H.M (X)": "",
+                "COMMODITY DESCRIPTION": "GRAND TOTAL",
+                "(LTL ONLY) NMFC #": "",
+                "(LTL ONLY) CLASS": ""
+              },
+              {
+                "HANDLING UNITS QTY": "Wherethe Naalorad..",
+                "HANDLING UNITS TYPE": "rate is dependen",
+                "PACKAGE QTY": "t on value,s",
+                "PACKAGE TYPE": "hippers are req",
+                "WEIGHT (LB)": "ired to state specific",
+                "H.M (X)": "ally in writ",
+                "COMMODITY DESCRIPTION": "ing the agreed or I cOD Amount: $",
+                "(LTL ONLY) NMFC #": "",
+                "(LTL ONLY) CLASS": ""
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    "Bill_4": {
+      "json_data": {
+        "Total Packages": "",
+        "Total Weight": "",
+        "Total Handling Units": "1",
+        "Customer Order Information": [
+          {
+            "CUSTOMER ORDER NUMBER": "5030149547",
+            "#PKGS": "48",
+            "WEIGHT (LB)": "374.61",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": "7514929-7655797"
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "GRANDTOTAL",
+            "#PKGS": "48",
+            "WEIGHT (LB)": "374.61",
+            "Pallet (Circle One)": "",
+            "Slip (Circle One)": "",
+            "ADDITIONAL SHIPPER INFO": ""
+          }
+        ],
+        "Carrier Information": [
+          {
+            "HANDLING UNITS QTY": "1",
+            "HANDLING UNITS TYPE": "Pallets",
+            "PACKAGE QTY": "5",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "147.12",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "TABLE/KITCHENWARE",
+            "(LTL ONLY) NMFC #": "101425.07",
+            "(LTL ONLY) CLASS": "92.5"
+          },
+          {
+            "HANDLING UNITS QTY": "",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "2",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "9.12",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "thermometer other",
+            "(LTL ONLY) NMFC #": "13120.01",
+            "(LTL ONLY) CLASS": "400"
+          },
+          {
+            "HANDLING UNITS QTY": "",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "4",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "30.72",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "STOPPERS,LIDS,CAPS,& OTHER CLOSURES.OFPLASTIC",
+            "(LTL ONLY) NMFC #": "156600.07",
+            "(LTL ONLY) CLASS": "92.5"
+          },
+          {
+            "HANDLING UNITS QTY": "",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "6",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "16.85",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "Household Tools,Kitchen& Table",
+            "(LTL ONLY) NMFC #": "156600.08",
+            "(LTL ONLY) CLASS": "85"
+          },
+          {
+            "HANDLING UNITS QTY": "",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "20",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "52.00",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "Kitchen/tableware, tin plate",
+            "(LTL ONLY) NMFC #": "52900.08",
+            "(LTL ONLY) CLASS": "85"
+          },
+          {
+            "HANDLING UNITS QTY": "",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "11",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "118.80",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "Cookingware. Not coated",
+            "(LTL ONLY) NMFC #": "52900.11",
+            "(LTL ONLY) CLASS": "60"
+          }
+        ]
+      },
+      "data_tables": [
+        [
+          {
+            "CUSTOMER ORDER NUMBER": "5030149547",
+            "#PKGS": "48",
+            "WEIGHT (LB)": "374.61",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": "7514929-7655797"
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "",
+            "#PKGS": "",
+            "WEIGHT (LB)": "",
+            "Pallet (Circle One)": "Y",
+            "Slip (Circle One)": "N",
+            "ADDITIONAL SHIPPER INFO": ""
+          },
+          {
+            "CUSTOMER ORDER NUMBER": "GRANDTOTAL",
+            "#PKGS": "48",
+            "WEIGHT (LB)": "374.61",
+            "Pallet (Circle One)": "",
+            "Slip (Circle One)": "",
+            "ADDITIONAL SHIPPER INFO": ""
+          }
+        ],
+        [
+          {
+            "HANDLING UNITS QTY": "1",
+            "HANDLING UNITS TYPE": "Pallets",
+            "PACKAGE QTY": "5",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "147.12",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "TABLE/KITCHENWARE",
+            "(LTL ONLY) NMFC #": "101425.07",
+            "(LTL ONLY) CLASS": "92.5"
+          },
+          {
+            "HANDLING UNITS QTY": "",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "2",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "9.12",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "thermometer other",
+            "(LTL ONLY) NMFC #": "13120.01",
+            "(LTL ONLY) CLASS": "400"
+          },
+          {
+            "HANDLING UNITS QTY": "",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "4",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "30.72",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "STOPPERS,LIDS,CAPS,& OTHER CLOSURES.OFPLASTIC",
+            "(LTL ONLY) NMFC #": "156600.07",
+            "(LTL ONLY) CLASS": "92.5"
+          },
+          {
+            "HANDLING UNITS QTY": "",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "6",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "16.85",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "Household Tools,Kitchen& Table",
+            "(LTL ONLY) NMFC #": "156600.08",
+            "(LTL ONLY) CLASS": "85"
+          },
+          {
+            "HANDLING UNITS QTY": "",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "20",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "52.00",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "Kitchen/tableware, tin plate",
+            "(LTL ONLY) NMFC #": "52900.08",
+            "(LTL ONLY) CLASS": "85"
+          },
+          {
+            "HANDLING UNITS QTY": "",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "11",
+            "PACKAGE TYPE": "Case",
+            "WEIGHT (LB)": "118.80",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "Cookingware. Not coated",
+            "(LTL ONLY) NMFC #": "52900.11",
+            "(LTL ONLY) CLASS": "60"
+          },
+          {
+            "HANDLING UNITS QTY": "1",
+            "HANDLING UNITS TYPE": "",
+            "PACKAGE QTY": "48",
+            "PACKAGE TYPE": "",
+            "WEIGHT (LB)": "374.61",
+            "H.M (X)": "",
+            "COMMODITY DESCRIPTION": "GRAND TOTAL",
+            "(LTL ONLY) NMFC #": "",
+            "(LTL ONLY) CLASS": ""
+          }
+        ]
+      ],
+      "page_images": [
+        "/static/results/537ce474-1577-4004-88c4-a1543d8a5f78/Bill_4/page_1.png",
+        "/static/results/537ce474-1577-4004-88c4-a1543d8a5f78/Bill_4/page_2.png"
+      ],
+      "pages": [
+        {
+          "absolute_page": 1,
+          "relative_page": 1,
+          "image_url": "/static/results/537ce474-1577-4004-88c4-a1543d8a5f78/Bill_4/page_1.png",
+          "tables": [
+            [
+              {
+                "CUSTOMER ORDER NUMBER": "5030149547",
+                "#PKGS": "48",
+                "WEIGHT (LB)": "374.61",
+                "Pallet (Circle One)": "Y",
+                "Slip (Circle One)": "N",
+                "ADDITIONAL SHIPPER INFO": "7514929-7655797"
+              },
+              {
+                "CUSTOMER ORDER NUMBER": "",
+                "#PKGS": "",
+                "WEIGHT (LB)": "",
+                "Pallet (Circle One)": "Y",
+                "Slip (Circle One)": "N",
+                "ADDITIONAL SHIPPER INFO": ""
+              },
+              {
+                "CUSTOMER ORDER NUMBER": "",
+                "#PKGS": "",
+                "WEIGHT (LB)": "",
+                "Pallet (Circle One)": "Y",
+                "Slip (Circle One)": "N",
+                "ADDITIONAL SHIPPER INFO": ""
+              },
+              {
+                "CUSTOMER ORDER NUMBER": "",
+                "#PKGS": "",
+                "WEIGHT (LB)": "",
+                "Pallet (Circle One)": "Y",
+                "Slip (Circle One)": "N",
+                "ADDITIONAL SHIPPER INFO": ""
+              },
+              {
+                "CUSTOMER ORDER NUMBER": "",
+                "#PKGS": "",
+                "WEIGHT (LB)": "",
+                "Pallet (Circle One)": "Y",
+                "Slip (Circle One)": "N",
+                "ADDITIONAL SHIPPER INFO": ""
+              },
+              {
+                "CUSTOMER ORDER NUMBER": "GRANDTOTAL",
+                "#PKGS": "48",
+                "WEIGHT (LB)": "374.61",
+                "Pallet (Circle One)": "",
+                "Slip (Circle One)": "",
+                "ADDITIONAL SHIPPER INFO": ""
+              }
+            ]
+          ]
+        },
+        {
+          "absolute_page": 2,
+          "relative_page": 2,
+          "image_url": "/static/results/537ce474-1577-4004-88c4-a1543d8a5f78/Bill_4/page_2.png",
+          "tables": [
+            [
+              {
+                "HANDLING UNITS QTY": "1",
+                "HANDLING UNITS TYPE": "Pallets",
+                "PACKAGE QTY": "5",
+                "PACKAGE TYPE": "Case",
+                "WEIGHT (LB)": "147.12",
+                "H.M (X)": "",
+                "COMMODITY DESCRIPTION": "TABLE/KITCHENWARE",
+                "(LTL ONLY) NMFC #": "101425.07",
+                "(LTL ONLY) CLASS": "92.5"
+              },
+              {
+                "HANDLING UNITS QTY": "",
+                "HANDLING UNITS TYPE": "",
+                "PACKAGE QTY": "2",
+                "PACKAGE TYPE": "Case",
+                "WEIGHT (LB)": "9.12",
+                "H.M (X)": "",
+                "COMMODITY DESCRIPTION": "thermometer other",
+                "(LTL ONLY) NMFC #": "13120.01",
+                "(LTL ONLY) CLASS": "400"
+              },
+              {
+                "HANDLING UNITS QTY": "",
+                "HANDLING UNITS TYPE": "",
+                "PACKAGE QTY": "4",
+                "PACKAGE TYPE": "Case",
+                "WEIGHT (LB)": "30.72",
+                "H.M (X)": "",
+                "COMMODITY DESCRIPTION": "STOPPERS,LIDS,CAPS,& OTHER CLOSURES.OFPLASTIC",
+                "(LTL ONLY) NMFC #": "156600.07",
+                "(LTL ONLY) CLASS": "92.5"
+              },
+              {
+                "HANDLING UNITS QTY": "",
+                "HANDLING UNITS TYPE": "",
+                "PACKAGE QTY": "6",
+                "PACKAGE TYPE": "Case",
+                "WEIGHT (LB)": "16.85",
+                "H.M (X)": "",
+                "COMMODITY DESCRIPTION": "Household Tools,Kitchen& Table",
+                "(LTL ONLY) NMFC #": "156600.08",
+                "(LTL ONLY) CLASS": "85"
+              },
+              {
+                "HANDLING UNITS QTY": "",
+                "HANDLING UNITS TYPE": "",
+                "PACKAGE QTY": "20",
+                "PACKAGE TYPE": "Case",
+                "WEIGHT (LB)": "52.00",
+                "H.M (X)": "",
+                "COMMODITY DESCRIPTION": "Kitchen/tableware, tin plate",
+                "(LTL ONLY) NMFC #": "52900.08",
+                "(LTL ONLY) CLASS": "85"
+              },
+              {
+                "HANDLING UNITS QTY": "",
+                "HANDLING UNITS TYPE": "",
+                "PACKAGE QTY": "11",
+                "PACKAGE TYPE": "Case",
+                "WEIGHT (LB)": "118.80",
+                "H.M (X)": "",
+                "COMMODITY DESCRIPTION": "Cookingware. Not coated",
+                "(LTL ONLY) NMFC #": "52900.11",
+                "(LTL ONLY) CLASS": "60"
+              },
+              {
+                "HANDLING UNITS QTY": "1",
+                "HANDLING UNITS TYPE": "",
+                "PACKAGE QTY": "48",
+                "PACKAGE TYPE": "",
+                "WEIGHT (LB)": "374.61",
+                "H.M (X)": "",
+                "COMMODITY DESCRIPTION": "GRAND TOTAL",
+                "(LTL ONLY) NMFC #": "",
+                "(LTL ONLY) CLASS": ""
+              }
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  "meta": {
+    "pages": 6,
+    "bills": 4
+  }
+}
